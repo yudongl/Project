@@ -7,14 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4D0E9FF42276803900B90670 /* NBackListGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0E9FF32276803900B90670 /* NBackListGenerator.swift */; };
 		4D92006D225ABDD000DF6DB9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D92006C225ABDD000DF6DB9 /* AppDelegate.swift */; };
 		4D92006F225ABDD000DF6DB9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D92006E225ABDD000DF6DB9 /* ViewController.swift */; };
 		4D920072225ABDD000DF6DB9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D920070225ABDD000DF6DB9 /* Main.storyboard */; };
 		4D920074225ABDD200DF6DB9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4D920073225ABDD200DF6DB9 /* Assets.xcassets */; };
 		4D920077225ABDD200DF6DB9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D920075225ABDD200DF6DB9 /* LaunchScreen.storyboard */; };
+		4D92007F225EC67D00DF6DB9 /* SwiftyTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D92007E225EC67D00DF6DB9 /* SwiftyTimer.swift */; };
+		4D920083225ECC6600DF6DB9 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D920082225ECC6600DF6DB9 /* SecondViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4D0E9FF32276803900B90670 /* NBackListGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NBackListGenerator.swift; sourceTree = "<group>"; };
 		4D920069225ABDD000DF6DB9 /* NBack.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NBack.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D92006C225ABDD000DF6DB9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4D92006E225ABDD000DF6DB9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -22,6 +26,8 @@
 		4D920073225ABDD200DF6DB9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4D920076225ABDD200DF6DB9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4D920078225ABDD200DF6DB9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4D92007E225EC67D00DF6DB9 /* SwiftyTimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyTimer.swift; sourceTree = "<group>"; };
+		4D920082225ECC6600DF6DB9 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,12 +60,15 @@
 		4D92006B225ABDD000DF6DB9 /* NBack */ = {
 			isa = PBXGroup;
 			children = (
+				4D92007E225EC67D00DF6DB9 /* SwiftyTimer.swift */,
 				4D92006C225ABDD000DF6DB9 /* AppDelegate.swift */,
 				4D92006E225ABDD000DF6DB9 /* ViewController.swift */,
 				4D920070225ABDD000DF6DB9 /* Main.storyboard */,
+				4D920082225ECC6600DF6DB9 /* SecondViewController.swift */,
 				4D920073225ABDD200DF6DB9 /* Assets.xcassets */,
 				4D920075225ABDD200DF6DB9 /* LaunchScreen.storyboard */,
 				4D920078225ABDD200DF6DB9 /* Info.plist */,
+				4D0E9FF32276803900B90670 /* NBackListGenerator.swift */,
 			);
 			path = NBack;
 			sourceTree = "<group>";
@@ -135,6 +144,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4D920083225ECC6600DF6DB9 /* SecondViewController.swift in Sources */,
+				4D0E9FF42276803900B90670 /* NBackListGenerator.swift in Sources */,
+				4D92007F225EC67D00DF6DB9 /* SwiftyTimer.swift in Sources */,
 				4D92006F225ABDD000DF6DB9 /* ViewController.swift in Sources */,
 				4D92006D225ABDD000DF6DB9 /* AppDelegate.swift in Sources */,
 			);

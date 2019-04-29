@@ -77,7 +77,7 @@ class ViewController: UIViewController {
         
         questionNum = questionNum + 1
         
-        if questionNum == 26 {
+        if questionNum == 27 {
             
             print(answerList)
             
