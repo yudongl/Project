@@ -31,17 +31,18 @@ class ViewControllerNBackPractice: UIViewController {
     
     var answer2 = [Int]()
     
-    let list1 = genarateOneBackPracticeList()
+    var list1 = [String]()
     
-    let list2 = genarateTwoBackPracticeList()
+    var list2 = [String]()
+    
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        
         oneBackPractice()
-        //print(findTargetIndex(n:2))
         
     }
     
@@ -60,6 +61,8 @@ class ViewControllerNBackPractice: UIViewController {
     
     
     func oneBackPractice(){
+        
+        list1 = genarateOneBackPracticeList()
         
         button2.setTitle("", for: .normal)
         button2.isEnabled = false
@@ -82,6 +85,8 @@ class ViewControllerNBackPractice: UIViewController {
     
     func twoBackPractice(){
         
+        list2 = genarateTwoBackPracticeList()
+        
         button2.setTitle("", for: .normal)
         button2.isEnabled = false
         button3.setTitle("", for: .normal)
@@ -91,6 +96,7 @@ class ViewControllerNBackPractice: UIViewController {
         label2.text = ""
         image1.image = UIImage(named: "trans")
         button1.isEnabled = false
+        button1.setTitle("Button", for: .normal)
         
         Timer.after(750.ms) {
             
@@ -103,14 +109,14 @@ class ViewControllerNBackPractice: UIViewController {
     
     func nextOneBackTrail(){
         
-        label2.text = ""
-        label1.text = "(get ready)"
+        label1.text = ""
+        label2.text = "(get ready)"
         image1.image = UIImage(named: "wait")
         button1.isEnabled = false
         
         Timer.after(500.ms) {
             self.button1.isEnabled = true
-            self.label1.text = ""
+            self.label2.text = ""
             self.image1.image = UIImage(named: self.list1[self.length1])
         }
         
@@ -129,7 +135,7 @@ class ViewControllerNBackPractice: UIViewController {
             }
             else {
                 //present feedback and go next practice
-                
+                self.button1.setTitle("", for: .normal)
                 self.button1.isEnabled = false
                 
                 let correctRate = self.calculateCorrectRate(n:1)
@@ -151,14 +157,14 @@ class ViewControllerNBackPractice: UIViewController {
     
     func nextTwoBackTrail(){
         
-        label2.text = ""
-        label1.text = "(get ready)"
+        label1.text = ""
+        label2.text = "(get ready)"
         image1.image = UIImage(named: "wait")
         button1.isEnabled = false
         
         Timer.after(500.ms) {
             self.button1.isEnabled = true
-            self.label1.text = ""
+            self.label2.text = ""
             self.image1.image = UIImage(named: self.list2[self.length2])
         }
         
@@ -178,7 +184,7 @@ class ViewControllerNBackPractice: UIViewController {
             else {
                 //present feedback and go next practice
                 //self.length = 0
-                
+                self.button1.setTitle("", for: .normal)
                 self.button1.isEnabled = false
                 
                 let correctRate = self.calculateCorrectRate(n:2)
@@ -273,7 +279,6 @@ class ViewControllerNBackPractice: UIViewController {
                 }
                 
                 index = index + 1
-                
             }
         
         }
@@ -286,14 +291,12 @@ class ViewControllerNBackPractice: UIViewController {
                 }
                 
                 index = index + 1
-                
             }
 
         }
         else {
             print("n may be out of stack")
         }
-        
         
         return targetList
     }
