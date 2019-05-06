@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="4F5-jc-knJ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="acg-Tk-Z23">
     <device id="retina6_1" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -10,10 +10,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Sign In Page-->
         <scene sceneID="Ezs-bx-RKa">
             <objects>
-                <viewController id="acg-Tk-Z23" sceneMemberID="viewController">
+                <viewController title="Sign In Page" id="acg-Tk-Z23" customClass="SignInVC" customModule="project_v1" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ecV-lo-4a8">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -39,10 +39,16 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xg2-zh-pvK">
                                 <rect key="frame" x="183.5" y="523" width="47" height="30"/>
                                 <state key="normal" title="Sign in"/>
+                                <connections>
+                                    <action selector="buttonSignInPressed:" destination="acg-Tk-Z23" eventType="touchUpInside" id="V1R-Vv-T3L"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ahc-ly-IIp">
                                 <rect key="frame" x="181" y="583" width="52" height="30"/>
                                 <state key="normal" title="Sign up"/>
+                                <connections>
+                                    <segue destination="rhf-YD-MtV" kind="show" id="MU2-fj-kg7"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -66,15 +72,20 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="3qY-2t-SZQ"/>
                     </view>
+                    <connections>
+                        <outlet property="textFieldPassword" destination="RQP-8y-M8j" id="8My-zA-ufN"/>
+                        <outlet property="textFieldUsername" destination="HvR-Sj-QXr" id="ikO-kY-xIb"/>
+                        <segue destination="czW-Kx-w6N" kind="show" identifier="SegueToMainMenu" id="xLg-cd-l56"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Zt5-fD-VQ2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2484" y="115"/>
+            <point key="canvasLocation" x="-2372" y="-16"/>
         </scene>
-        <!--View Controller-->
+        <!--Sign Up Page-->
         <scene sceneID="s2h-ef-6E9">
             <objects>
-                <viewController id="rhf-YD-MtV" sceneMemberID="viewController">
+                <viewController title="Sign Up Page" id="rhf-YD-MtV" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="njL-KM-g1j">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -147,7 +158,76 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CL5-cu-u5o" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1533.3333333333335" y="114.50892857142857"/>
+            <point key="canvasLocation" x="-2372" y="900"/>
+        </scene>
+        <!--User Profile-->
+        <scene sceneID="Mel-pR-xxk">
+            <objects>
+                <viewController id="Ysd-G3-B9J" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="qWV-iy-1Xg">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="User Profile" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UCM-uR-IWp">
+                                <rect key="frame" x="162" y="438" width="90" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="ROd-SL-qOy"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="User Profile" id="wnA-7l-8bv"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JQp-YT-v3K" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1281" y="900"/>
+        </scene>
+        <!--Rank-->
+        <scene sceneID="xzj-iw-lAT">
+            <objects>
+                <viewController id="ZCe-8m-K0r" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="AAo-6g-hzH">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Rank" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gbp-0l-ncQ">
+                                <rect key="frame" x="188" y="438" width="39" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="qlZ-59-uO7"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Rank" id="iDV-sH-X9l"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wwJ-wo-2AS" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1281" y="-978"/>
+        </scene>
+        <!--Main Tab Bar-->
+        <scene sceneID="pAc-cm-VbB">
+            <objects>
+                <tabBarController title="Main Tab Bar" id="czW-Kx-w6N" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="d7l-qT-0KE">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="d7K-tQ-N4U"/>
+                        <segue destination="ZCe-8m-K0r" kind="relationship" relationship="viewControllers" id="TLM-Ta-P4x"/>
+                        <segue destination="Ysd-G3-B9J" kind="relationship" relationship="viewControllers" id="EBq-jO-2aE"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uNP-dz-5jt" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1281" y="-16"/>
         </scene>
         <!--MainVC-->
         <scene sceneID="tne-QT-ifu">
@@ -193,6 +273,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <tabBarItem key="tabBarItem" title="Main" id="8gl-2d-RcB"/>
                     <navigationItem key="navigationItem" id="T4V-TK-LKi"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -852,7 +933,7 @@ Press &lt;skip&gt; to go straight to the actual task.</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3wO-mG-koy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="847.5" y="-832.5"/>
+            <point key="canvasLocation" x="852" y="-1168"/>
         </scene>
         <!--DDT Test-->
         <scene sceneID="ISG-sd-Exa">
@@ -917,7 +998,7 @@ Press &lt;skip&gt; to go straight to the actual task.</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="u2T-If-S0s" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1954" y="-830"/>
+            <point key="canvasLocation" x="1954" y="-1169"/>
         </scene>
         <!--N-Back Q2-->
         <scene sceneID="lHk-kb-cg5">
@@ -1779,14 +1860,14 @@ Press &lt;Start&gt; to begin your practice.</string>
         <image name="stopX" width="341" height="341"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="hdn-V6-tfX"/>
+        <segue reference="Plu-4U-jaf"/>
         <segue reference="1Kh-KJ-hHZ"/>
         <segue reference="8Qi-wW-7OC"/>
         <segue reference="Nk2-z8-zlB"/>
         <segue reference="C7B-vH-W6b"/>
         <segue reference="xsC-qd-TqP"/>
         <segue reference="LOY-C1-L8d"/>
-        <segue reference="ajo-cU-vgh"/>
-        <segue reference="NSi-2d-vY2"/>
+        <segue reference="ndL-gX-5VL"/>
+        <segue reference="d7K-tQ-N4U"/>
     </inferredMetricsTieBreakers>
 </document>

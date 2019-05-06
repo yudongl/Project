@@ -73,6 +73,8 @@ class ViewControllerSSTTest: UIViewController {
         practiceList = testList.shuffled()
         userRespondResult = []
         
+        
+        textView1.text = ""
         label1.text = "Experiment Block \(experimentBlockNum)"
         label2.text = ""
         image1.image = UIImage(named: "trans")

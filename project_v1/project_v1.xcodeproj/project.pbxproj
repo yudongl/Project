@@ -11,23 +11,29 @@
 		4D0E9FE822753A7600B90670 /* ViewControllerSSTTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0E9FE722753A7600B90670 /* ViewControllerSSTTest.swift */; };
 		4D0E9FEA22753A8E00B90670 /* ViewControllerNBackPractice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0E9FE922753A8E00B90670 /* ViewControllerNBackPractice.swift */; };
 		4D0E9FEC22753AA100B90670 /* ViewControllerNBackTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0E9FEB22753AA100B90670 /* ViewControllerNBackTest.swift */; };
-		4D0E9FEE22766A3E00B90670 /* SwiftyTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0E9FED22766A3E00B90670 /* SwiftyTimer.swift */; };
 		4D0E9FF222767CAF00B90670 /* NBackListGenerate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0E9FF122767CAF00B90670 /* NBackListGenerate.swift */; };
+		4D0EA035227FB91500B90670 /* SignInVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0EA034227FB91500B90670 /* SignInVC.swift */; };
+		4D0EA037227FC35E00B90670 /* SwiftyTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0EA036227FC35E00B90670 /* SwiftyTimer.swift */; };
+		4D0EA039227FE95600B90670 /* SignUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0EA038227FE95600B90670 /* SignUpVC.swift */; };
 		4D9200A42266952500DF6DB9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D9200A32266952500DF6DB9 /* AppDelegate.swift */; };
 		4D9200A62266952500DF6DB9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D9200A52266952500DF6DB9 /* ViewController.swift */; };
 		4D9200A92266952500DF6DB9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D9200A72266952500DF6DB9 /* Main.storyboard */; };
 		4D9200AB2266952700DF6DB9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4D9200AA2266952700DF6DB9 /* Assets.xcassets */; };
 		4D9200AE2266952700DF6DB9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D9200AC2266952700DF6DB9 /* LaunchScreen.storyboard */; };
 		4D9200B62266A7AD00DF6DB9 /* ViewControllerDDTTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D9200B52266A7AD00DF6DB9 /* ViewControllerDDTTest.swift */; };
+		CA8C8E71780CC5047364399F /* Pods_project_v1.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B2019CB2225504B65342021 /* Pods_project_v1.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1B2019CB2225504B65342021 /* Pods_project_v1.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_project_v1.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D0E9FE522753A6300B90670 /* ViewControllerSSTPractice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerSSTPractice.swift; sourceTree = "<group>"; };
 		4D0E9FE722753A7600B90670 /* ViewControllerSSTTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerSSTTest.swift; sourceTree = "<group>"; };
 		4D0E9FE922753A8E00B90670 /* ViewControllerNBackPractice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerNBackPractice.swift; sourceTree = "<group>"; };
 		4D0E9FEB22753AA100B90670 /* ViewControllerNBackTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerNBackTest.swift; sourceTree = "<group>"; };
-		4D0E9FED22766A3E00B90670 /* SwiftyTimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwiftyTimer.swift; path = ../../NBack/NBack/SwiftyTimer.swift; sourceTree = "<group>"; };
 		4D0E9FF122767CAF00B90670 /* NBackListGenerate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NBackListGenerate.swift; sourceTree = "<group>"; };
+		4D0EA034227FB91500B90670 /* SignInVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInVC.swift; sourceTree = "<group>"; };
+		4D0EA036227FC35E00B90670 /* SwiftyTimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyTimer.swift; sourceTree = "<group>"; };
+		4D0EA038227FE95600B90670 /* SignUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpVC.swift; sourceTree = "<group>"; };
 		4D9200A02266952500DF6DB9 /* project_v1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = project_v1.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D9200A32266952500DF6DB9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4D9200A52266952500DF6DB9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -36,6 +42,8 @@
 		4D9200AD2266952700DF6DB9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4D9200AF2266952700DF6DB9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4D9200B52266A7AD00DF6DB9 /* ViewControllerDDTTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerDDTTest.swift; sourceTree = "<group>"; };
+		85B1551DEC9E3C73B2BE4E16 /* Pods-project_v1.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-project_v1.debug.xcconfig"; path = "Target Support Files/Pods-project_v1/Pods-project_v1.debug.xcconfig"; sourceTree = "<group>"; };
+		AA0956F3ACF4F4B85E884AF1 /* Pods-project_v1.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-project_v1.release.xcconfig"; path = "Target Support Files/Pods-project_v1/Pods-project_v1.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -43,17 +51,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CA8C8E71780CC5047364399F /* Pods_project_v1.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		13B13B690BFAF9353303DA47 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1B2019CB2225504B65342021 /* Pods_project_v1.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		406705D628BAD1AB6A58F371 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				85B1551DEC9E3C73B2BE4E16 /* Pods-project_v1.debug.xcconfig */,
+				AA0956F3ACF4F4B85E884AF1 /* Pods-project_v1.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		4D9200972266952500DF6DB9 = {
 			isa = PBXGroup;
 			children = (
 				4D9200A22266952500DF6DB9 /* project_v1 */,
 				4D9200A12266952500DF6DB9 /* Products */,
+				406705D628BAD1AB6A58F371 /* Pods */,
+				13B13B690BFAF9353303DA47 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -69,10 +97,12 @@
 			isa = PBXGroup;
 			children = (
 				4D0E9FF122767CAF00B90670 /* NBackListGenerate.swift */,
-				4D0E9FED22766A3E00B90670 /* SwiftyTimer.swift */,
 				4D9200A32266952500DF6DB9 /* AppDelegate.swift */,
+				4D0EA036227FC35E00B90670 /* SwiftyTimer.swift */,
 				4D9200A52266952500DF6DB9 /* ViewController.swift */,
 				4D9200A72266952500DF6DB9 /* Main.storyboard */,
+				4D0EA034227FB91500B90670 /* SignInVC.swift */,
+				4D0EA038227FE95600B90670 /* SignUpVC.swift */,
 				4D9200B52266A7AD00DF6DB9 /* ViewControllerDDTTest.swift */,
 				4D0E9FE522753A6300B90670 /* ViewControllerSSTPractice.swift */,
 				4D0E9FE722753A7600B90670 /* ViewControllerSSTTest.swift */,
@@ -92,9 +122,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4D9200B22266952700DF6DB9 /* Build configuration list for PBXNativeTarget "project_v1" */;
 			buildPhases = (
+				939884E2A32948660CF3EB7A /* [CP] Check Pods Manifest.lock */,
 				4D92009C2266952500DF6DB9 /* Sources */,
 				4D92009D2266952500DF6DB9 /* Frameworks */,
 				4D92009E2266952500DF6DB9 /* Resources */,
+				29D5B3FBFCCF0055231148BB /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -151,6 +183,55 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		29D5B3FBFCCF0055231148BB /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-project_v1/Pods-project_v1-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-project_v1/Pods-project_v1-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		939884E2A32948660CF3EB7A /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-project_v1-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		4D92009C2266952500DF6DB9 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -159,12 +240,14 @@
 				4D0E9FE822753A7600B90670 /* ViewControllerSSTTest.swift in Sources */,
 				4D0E9FEC22753AA100B90670 /* ViewControllerNBackTest.swift in Sources */,
 				4D9200A62266952500DF6DB9 /* ViewController.swift in Sources */,
+				4D0EA039227FE95600B90670 /* SignUpVC.swift in Sources */,
 				4D0E9FF222767CAF00B90670 /* NBackListGenerate.swift in Sources */,
-				4D0E9FEE22766A3E00B90670 /* SwiftyTimer.swift in Sources */,
+				4D0EA035227FB91500B90670 /* SignInVC.swift in Sources */,
 				4D9200B62266A7AD00DF6DB9 /* ViewControllerDDTTest.swift in Sources */,
 				4D0E9FE622753A6300B90670 /* ViewControllerSSTPractice.swift in Sources */,
 				4D9200A42266952500DF6DB9 /* AppDelegate.swift in Sources */,
 				4D0E9FEA22753A8E00B90670 /* ViewControllerNBackPractice.swift in Sources */,
+				4D0EA037227FC35E00B90670 /* SwiftyTimer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -308,6 +391,7 @@
 		};
 		4D9200B32266952700DF6DB9 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 85B1551DEC9E3C73B2BE4E16 /* Pods-project_v1.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -326,6 +410,7 @@
 		};
 		4D9200B42266952700DF6DB9 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AA0956F3ACF4F4B85E884AF1 /* Pods-project_v1.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
