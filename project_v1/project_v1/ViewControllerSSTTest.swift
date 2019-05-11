@@ -7,11 +7,11 @@
 //
 
 import UIKit
+import Alamofire
+import SwiftyJSON
+
 
 class ViewControllerSSTTest: UIViewController {
-
-    
-    @IBOutlet weak var label1: UILabel!
     
     @IBOutlet weak var label2: UILabel!
     
@@ -28,6 +28,7 @@ class ViewControllerSSTTest: UIViewController {
     @IBOutlet weak var textView1: UITextView!
     
     
+    var missedNum = 0
     
     var practiceList = [Int]()
     
@@ -49,12 +50,17 @@ class ViewControllerSSTTest: UIViewController {
     
     var userRespondResult = [[String(), Int()]]
     
+    let defaults = UserDefaults.standard
+    
+    var dataToServer = ["block" : 0, "incorrect" : 0, "missed" : 0, "percentage" : 0, "reactionTime" : 0, "trials" : 0, "username" : "string"] as [String : Any]
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         stopSignalTask()
+        
     }
     
 
@@ -75,7 +81,7 @@ class ViewControllerSSTTest: UIViewController {
         
         
         textView1.text = ""
-        label1.text = "Experiment Block \(experimentBlockNum)"
+        textView1.text = "Experiment Block \(experimentBlockNum)"
         label2.text = ""
         image1.image = UIImage(named: "trans")
         button1.setTitle("", for: .normal)
@@ -100,13 +106,15 @@ class ViewControllerSSTTest: UIViewController {
         
         
         selectedAnswer = -1
-        label1.text = "(wait)"
+        
+        self.image1.image = UIImage(named: "trans")
+        textView1.text = ""
         
         Timer.after(1000.ms) {
             
             self.image1.image = UIImage(named: "wait")
-            self.label1.text = ""
-            self.label2.text = "(get ready)"
+            self.textView1.text = ""
+            self.label2.text = ""
         }
         
         Timer.after(1250.ms) {
@@ -122,61 +130,14 @@ class ViewControllerSSTTest: UIViewController {
             if self.practiceList[self.length] == 0{
                 
                 self.image1.image = UIImage(named: "SSTX")
-                self.label2.text = "(Press X as fast as possible)"
+                self.label2.text = ""
                 self.buttonX.isEnabled = true
                 self.buttonO.isEnabled = true
                 
                 Timer.after(1000.ms, {
-                    //present feedback
+
+                    self.goToNextTrail()
                     
-                    self.timer?.invalidate()
-                    
-                    self.image1.image = UIImage(named: "trans")
-                    self.label1.text = self.checkAnswer()
-                    
-                    self.userRespondResult.append([self.checkAnswer(), self.userRespondTime])
-                    
-                    //print(self.checkAnswer())
-                    self.label2.text = ""
-                    self.buttonX.isEnabled = false
-                    self.buttonO.isEnabled = false
-                    
-                    Timer.after(2000.ms, {
-                        
-                        if self.length < 19{
-                            self.length = self.length + 1
-                            self.nextStimuli()
-                        }else{
-                            
-                            self.getFeedBack()
-                            
-                            if self.experimentBlockNum == 4{
-                                
-                                self.label1.text = ""
-                                self.label2.text = "You have finish the test"
-                                self.button1.setTitle("Back to the main menu", for: .normal)
-                                self.button1.isEnabled = true
-                                
-                                print(self.userRespondResult)
-                                
-                                print("You have finish the test")
-                            }else{
-                                self.experimentBlockNum = self.experimentBlockNum + 1
-                                
-                                self.label1.text = ""
-                                self.label2.text = "Go to next experiment block"
-                                self.button2.setTitle("Continue", for: .normal)
-                                self.button2.isEnabled = true
-                                
-                                print(self.userRespondResult)
-                                
-                                print("Go to next block")
-                                
-                                
-                            }
-                        }
-                        
-                    })
                 })
                 
                 
@@ -184,68 +145,20 @@ class ViewControllerSSTTest: UIViewController {
             } else if self.practiceList[self.length] == 1{
                 
                 self.image1.image = UIImage(named: "SSTO")
-                self.label2.text = "(Press O as fast as possible)"
+                self.label2.text = ""
                 self.buttonX.isEnabled = true
                 self.buttonO.isEnabled = true
                 
                 Timer.after(1000.ms, {
                     //present feedback
-                    
-                    self.timer?.invalidate()
-                    
-                    self.image1.image = UIImage(named: "trans")
-                    self.label1.text = self.checkAnswer()
-                    
-                    self.userRespondResult.append([self.checkAnswer(), self.userRespondTime])
-                    
-                    //print(self.checkAnswer())
-                    self.label2.text = ""
-                    self.buttonX.isEnabled = false
-                    self.buttonO.isEnabled = false
-                    
-                    Timer.after(2000.ms, {
-                        
-                        if self.length < 19{
-                            self.length = self.length + 1
-                            self.nextStimuli()
-                        }else{
-                            
-                            self.getFeedBack()
-                            
-                            if self.experimentBlockNum == 4{
-                                
-                                self.label1.text = ""
-                                self.label2.text = "You have finish the test"
-                                self.button1.setTitle("Back to the main menu", for: .normal)
-                                self.button1.isEnabled = true
-                                
-                                print(self.userRespondResult)
-                                
-                                print("You have finish the test")
-                            }else{
-                                
-                                self.experimentBlockNum = self.experimentBlockNum + 1
-                                
-                                self.label1.text = ""
-                                self.label2.text = "Go to next experiment block"
-                                self.button2.setTitle("Continue", for: .normal)
-                                self.button2.isEnabled = true
-                                
-                                print(self.userRespondResult)
-                                
-                                print("Go to next block")
-                                
-                                
-                            }
-                        }
-                        
-                    })
+                    self.goToNextTrail()
+                   
                 })
                 
             } else if self.practiceList[self.length] == 2{
                 
                 self.image1.image = UIImage(named: "SSTX")
-                self.label2.text = "(Do not press any key)"
+                self.label2.text = ""
                 self.buttonX.isEnabled = true
                 self.buttonO.isEnabled = true
                 
@@ -256,54 +169,8 @@ class ViewControllerSSTTest: UIViewController {
                     Timer.after(1000.ms, {
                         //present feedback
                         
-                        self.timer?.invalidate()
+                        self.goToNextTrail()
                         
-                        self.image1.image = UIImage(named: "trans")
-                        self.label1.text = self.checkAnswer()
-                        
-                        self.userRespondResult.append([self.checkAnswer(), self.userRespondTime])
-                        
-                        //print(self.checkAnswer())
-                        self.label2.text = ""
-                        self.buttonX.isEnabled = false
-                        self.buttonO.isEnabled = false
-                        
-                        Timer.after(2000.ms, {
-                            
-                            if self.length < 19{
-                                self.length = self.length + 1
-                                self.nextStimuli()
-                            }else{
-                                
-                                self.getFeedBack()
-                                
-                                if self.experimentBlockNum == 4{
-                                    
-                                    self.label1.text = ""
-                                    self.label2.text = "You have finish the test"
-                                    self.button1.setTitle("Back to the main menu", for: .normal)
-                                    self.button1.isEnabled = true
-                                    
-                                    print(self.userRespondResult)
-                                    
-                                    print("You have finish the test")
-                                }else{
-                                    self.experimentBlockNum = self.experimentBlockNum + 1
-                                    
-                                    self.label1.text = ""
-                                    self.label2.text = "Go to next experiment block"
-                                    self.button2.setTitle("Continue", for: .normal)
-                                    self.button2.isEnabled = true
-                                    
-                                    print(self.userRespondResult)
-                                    
-                                    print("Go to next block")
-                                    
-                                    
-                                }
-                            }
-                            
-                        })
                     })
                     
                 })
@@ -312,7 +179,7 @@ class ViewControllerSSTTest: UIViewController {
             } else if self.practiceList[self.length] == 3{
                 
                 self.image1.image = UIImage(named: "SSTO")
-                self.label2.text = "(Do not press any key)"
+                self.label2.text = ""
                 self.buttonX.isEnabled = true
                 self.buttonO.isEnabled = true
                 
@@ -325,54 +192,8 @@ class ViewControllerSSTTest: UIViewController {
                     Timer.after(1000.ms, {
                         //present feedback
                         
-                        self.timer?.invalidate()
+                        self.goToNextTrail()
                         
-                        self.image1.image = UIImage(named: "trans")
-                        self.label1.text = self.checkAnswer()
-                        
-                        self.userRespondResult.append([self.checkAnswer(), self.userRespondTime])
-                        
-                        //print(self.checkAnswer())
-                        self.label2.text = ""
-                        self.buttonX.isEnabled = false
-                        self.buttonO.isEnabled = false
-                        
-                        Timer.after(2000.ms, {
-                            
-                            if self.length < 19{
-                                self.length = self.length + 1
-                                self.nextStimuli()
-                            }else{
-                                
-                                self.getFeedBack()
-                                
-                                if self.experimentBlockNum == 4{
-                                    
-                                    self.label1.text = ""
-                                    self.label2.text = "You have finish the test"
-                                    self.button1.setTitle("Back to the main menu", for: .normal)
-                                    self.button1.isEnabled = true
-                                    
-                                    print(self.userRespondResult)
-                                    
-                                    print("You have finish the test")
-                                }else{
-                                    self.experimentBlockNum = self.experimentBlockNum + 1
-                                    
-                                    self.label1.text = ""
-                                    self.label2.text = "Go to next experiment block"
-                                    self.button2.setTitle("Continue", for: .normal)
-                                    self.button2.isEnabled = true
-                                    
-                                    print(self.userRespondResult)
-                                    
-                                    print("Go to next block")
-                                    
-                                    
-                                }
-                            }
-                            
-                        })
                     })
                 })
             }
@@ -495,9 +316,9 @@ class ViewControllerSSTTest: UIViewController {
         
         var i = 0
         
-        while i <= 19 {
+        while i <= 20 {
             
-            if list1[i] == "missed" {
+            if list1[i] == "miss" {
                 missedNum = missedNum + 1
             }else if list1[i] == "incorrect"{
                 incorrectNum = incorrectNum + 1
@@ -512,13 +333,103 @@ class ViewControllerSSTTest: UIViewController {
             
         }
         
-        successStopRate = Double(successStopNum/4)
+        successStopRate = Double(successStopNum)/Double(4)
         
-        avgReactionTime = Double(hitReactionTime/hitNum)
+        avgReactionTime = Double(hitReactionTime)/Double(hitNum)
         
         textView1.text = "Results of Practice Block \n - Number of incorrect responses to go stimuli: \(incorrectNum) \n - Number of missed responses to go stimuli: \(missedNum) \n - Average reaction time to go stimuli: \(String(format: "%.2f", avgReactionTime)) \n - Percentage of correctly suppressed responses on stop trials: \(String(format: "%.2f", successStopRate))"
         
+        dataToServer = ["block" : experimentBlockNum, "incorrect" : incorrectNum, "missed" : missedNum, "percentage" : successStopRate, "reactionTime" : avgReactionTime, "trials" : 20, "username" : defaults.dictionary(forKey: "currentUserInfo")?["username"] as Any] as [String : Any]
+        
     }
+    
+    
+    
+    func goToNextTrail(){
+        
+        self.timer?.invalidate()
+        
+        self.userRespondResult.append([self.checkAnswer(), self.userRespondTime])
+        
+        if self.length < 19{
+            
+            self.length = self.length + 1
+            
+            if self.checkAnswer() == "miss" {
+                
+                self.missedNum = self.missedNum + 1
+                
+                if self.missedNum >= 3 {
+                    
+                    image1.image = UIImage(named: "trans")
+                    self.textView1.text = "You MUST respond to X/O go stimuli as fast as possible"
+                    
+                    Timer.after(1000.ms) {
+                        self.nextStimuli()
+                    }
+                    
+                }else{
+                    self.nextStimuli()
+                    
+                }
+            }else{
+                
+                self.missedNum = 0
+                self.nextStimuli()
+                
+            }
+            
+        }else{
+            
+            self.image1.image = UIImage(named: "trans")
+            self.getFeedBack()
+            
+            //send data to server
+            Alamofire.request("http://45.113.232.152/sst/save", method: .post, parameters: dataToServer, encoding: JSONEncoding.default).responseJSON { (response) in
+                if response.result.isSuccess{
+                    
+                    print("Success")
+                    let resultJSON : JSON = JSON(response.result.value!)
+                    
+                    print(resultJSON)
+                    
+                }
+                else{
+                    
+                    print("Error \(String(describing: response.result.error))")
+                }
+                
+            }
+            
+            
+            if self.experimentBlockNum == 4{
+                
+                //self.textView1.text = ""
+                self.label2.text = "You have finish the test"
+                self.button1.setTitle("Back to the main menu", for: .normal)
+                self.button1.isEnabled = true
+                
+                print(self.userRespondResult)
+                
+                print("You have finish the test")
+            }else{
+                self.experimentBlockNum = self.experimentBlockNum + 1
+                
+                //self.textView1.text = ""
+                self.label2.text = "Go to next experiment block"
+                self.button2.setTitle("Continue", for: .normal)
+                self.button2.isEnabled = true
+                
+                print(self.userRespondResult)
+                
+                print("Go to next block")
+                
+                
+            }
+        }
+        
+    }
+    
     
     
     

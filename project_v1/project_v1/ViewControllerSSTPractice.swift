@@ -10,8 +10,6 @@ import UIKit
 
 class ViewControllerSSTPractice: UIViewController {
 
-    @IBOutlet weak var label1: UILabel!
-    
     @IBOutlet weak var label2: UILabel!
     
     @IBOutlet weak var image1: UIImageView!
@@ -21,9 +19,8 @@ class ViewControllerSSTPractice: UIViewController {
     @IBOutlet weak var buttonX: UIButton!
     
     @IBOutlet weak var buttonO: UIButton!
-    
+
     @IBOutlet weak var textView1: UITextView!
-    
     
     
     let practiceList = [0, 0, 0, 0, 1, 1, 1, 1, 2, 3].shuffled()
@@ -39,6 +36,8 @@ class ViewControllerSSTPractice: UIViewController {
     var hitTime = 0
     
     var userRespondTime = 0
+    
+    var missedNum = 0
     
     var userRespondResult = [["", 0]]
     
@@ -66,10 +65,9 @@ class ViewControllerSSTPractice: UIViewController {
     func stopSignalTask(){
         
         userRespondResult = []
+        missedNum = 0
         
-        
-        textView1.text = ""
-        label1.text = "Practice Block"
+        textView1.text = "Practice Block"
         label2.text = ""
         image1.image = UIImage(named: "trans")
         button1.setTitle("", for: .normal)
@@ -91,12 +89,12 @@ class ViewControllerSSTPractice: UIViewController {
         
         
         selectedAnswer = -1
-        label1.text = "(wait)"
+        textView1.text = "(wait)"
         
         Timer.after(1000.ms) {
             
             self.image1.image = UIImage(named: "wait")
-            self.label1.text = ""
+            self.textView1.text = ""
             self.label2.text = "(get ready)"
         }
         
@@ -123,7 +121,9 @@ class ViewControllerSSTPractice: UIViewController {
                     self.timer?.invalidate()
                     
                     self.image1.image = UIImage(named: "trans")
-                    self.label1.text = self.checkAnswer()
+                    //self.label1.text = self.checkAnswer()
+                    
+                    self.getEveryTrailFeedback()
                     
                     self.userRespondResult.append([self.checkAnswer(), self.userRespondTime])
                     
@@ -140,8 +140,8 @@ class ViewControllerSSTPractice: UIViewController {
                         }else{
                             
                             self.getFeedBack()
-                            self.label1.text = ""
-                            self.label2.text = "You have finish the test"
+                            //self.textView1.text = ""
+                            self.label2.text = "You have finish the practice!"
                             self.buttonO.isEnabled = false
                             self.buttonX.isEnabled = false
                             
@@ -172,7 +172,8 @@ class ViewControllerSSTPractice: UIViewController {
                     self.timer?.invalidate()
                     
                     self.image1.image = UIImage(named: "trans")
-                    self.label1.text = self.checkAnswer()
+                    //self.label1.text = self.checkAnswer()
+                    self.getEveryTrailFeedback()
                     
                     self.userRespondResult.append([self.checkAnswer(), self.userRespondTime])
                     
@@ -189,8 +190,8 @@ class ViewControllerSSTPractice: UIViewController {
                         }else{
                             
                             self.getFeedBack()
-                            self.label1.text = ""
-                            self.label2.text = "You have finish the test"
+                            //self.textView1.text = ""
+                            self.label2.text = "You have finish the practice!"
                             self.buttonO.isEnabled = false
                             self.buttonX.isEnabled = false
                             
@@ -221,7 +222,8 @@ class ViewControllerSSTPractice: UIViewController {
                         self.timer?.invalidate()
                         
                         self.image1.image = UIImage(named: "trans")
-                        self.label1.text = self.checkAnswer()
+                        //self.label1.text = self.checkAnswer()
+                        self.getEveryTrailFeedback()
                         
                         self.userRespondResult.append([self.checkAnswer(), self.userRespondTime])
                         
@@ -238,8 +240,8 @@ class ViewControllerSSTPractice: UIViewController {
                             }else{
                                 
                                 self.getFeedBack()
-                                self.label1.text = ""
-                                self.label2.text = "You have finish the test"
+                                //self.textView1.text = ""
+                                self.label2.text = "You have finish the practice!"
                                 self.buttonO.isEnabled = false
                                 self.buttonX.isEnabled = false
                                 
@@ -275,7 +277,8 @@ class ViewControllerSSTPractice: UIViewController {
                         self.timer?.invalidate()
                         
                         self.image1.image = UIImage(named: "trans")
-                        self.label1.text = self.checkAnswer()
+                        //self.label1.text = self.checkAnswer()
+                        self.getEveryTrailFeedback()
                         
                         self.userRespondResult.append([self.checkAnswer(), self.userRespondTime])
                         
@@ -292,8 +295,8 @@ class ViewControllerSSTPractice: UIViewController {
                             }else{
                                 
                                 self.getFeedBack()
-                                self.label1.text = ""
-                                self.label2.text = "You have finish the test"
+                                //self.textView1.text = ""
+                                self.label2.text = "You have finish the practice!"
                                 self.buttonO.isEnabled = false
                                 self.buttonX.isEnabled = false
                                 
@@ -389,6 +392,61 @@ class ViewControllerSSTPractice: UIViewController {
     }
     
     
+    
+    
+    func getEveryTrailFeedback(){
+        
+        if self.checkAnswer() == "miss" {
+            
+            self.missedNum = self.missedNum + 1
+            
+            if self.missedNum >= 3 {
+                self.textView1.text = "You MUST respond to X/O go stimuli as fast as possible"
+            }else{
+                self.textView1.text = "Miss (you must go faster)"
+            }
+            
+        }else if self.checkAnswer() == "hit" {
+            
+            self.missedNum = 0
+            
+            if self.userRespondTime > 500 {
+                self.textView1.text = "Hit (but try to go faster)"
+            }else {
+                self.textView1.text = "Hit"
+            }
+            
+        }else if self.checkAnswer() == "incorrect" {
+            
+            self.missedNum = 0
+            self.textView1.text = "Miss (incorrect button)"
+            
+        }else if self.checkAnswer() == "successful stop" {
+            
+            self.missedNum = 0
+            self.textView1.text = "Successful stop - Well done!"
+            
+        }else if self.checkAnswer() == "unsuccessful stop" {
+            
+            self.missedNum = 0
+            self.textView1.text = "Unsuccessful stop \n – You should not have pressed any button"
+            
+        }else{
+            
+            self.missedNum = 0
+            self.textView1.text = "There may have some problems"
+            
+        }
+        
+        
+    }
+    
+    
+    
+    
+    
+    
+    
     func getFeedBack(){
         
         var incorrectNum = 0
@@ -417,12 +475,14 @@ class ViewControllerSSTPractice: UIViewController {
             
         }
         
+        //print(list1)
+        //print(list2)
         
         var i = 0
         
-        while i <= 9 {
+        while i <= 10 {
             
-            if list1[i] == "missed" {
+            if list1[i] == "miss" {
                 missedNum = missedNum + 1
             }else if list1[i] == "incorrect"{
                 incorrectNum = incorrectNum + 1
@@ -437,9 +497,9 @@ class ViewControllerSSTPractice: UIViewController {
             
         }
         
-        successStopRate = Double(successStopNum/2)
+        successStopRate = Double(successStopNum)/Double(2)
         
-        avgReactionTime = Double(hitReactionTime/hitNum)
+        avgReactionTime = Double(hitReactionTime)/Double(hitNum)
         
         textView1.text = "Results of Practice Block \n - Number of incorrect responses to go stimuli: \(incorrectNum) \n - Number of missed responses to go stimuli: \(missedNum) \n - Average reaction time to go stimuli: \(String(format: "%.2f", avgReactionTime)) \n - Percentage of correctly suppressed responses on stop trials: \(String(format: "%.2f", successStopRate))"
         

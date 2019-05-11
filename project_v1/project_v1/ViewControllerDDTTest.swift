@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import Alamofire
+import SwiftyJSON
+
 
 class ViewControllerDDTTest: UIViewController {
 
@@ -58,6 +61,13 @@ class ViewControllerDDTTest: UIViewController {
     var questionNum = 0
     
     
+    var dataToServer = ["answers": [[0,0]], "username": "string"] as [String : Any]
+    
+    
+    let defaults = UserDefaults.standard
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -94,7 +104,29 @@ class ViewControllerDDTTest: UIViewController {
         
         if questionNum == 27 {
             
-            print(answerList)
+            dataToServer = ["answers": answerList, "username": defaults.dictionary(forKey: "currentUserInfo")?["username"] as Any] as [String : Any]
+            
+            print(dataToServer)
+            
+            //send data to server
+            Alamofire.request("http://45.113.232.152/ddt/save", method: .post, parameters: dataToServer, encoding: JSONEncoding.default).responseJSON { (response) in
+                if response.result.isSuccess{
+                    
+                    print("Success")
+                    let resultJSON : JSON = JSON(response.result.value!)
+                    
+                    print(resultJSON)
+                    
+                }
+                else{
+                    
+                    print("Error \(String(describing: response.result.error))")
+                }
+                
+            }
+            
+            
+            
             
             self.finishedRemind()
             
@@ -122,8 +154,7 @@ class ViewControllerDDTTest: UIViewController {
     
     func startOver() {
         
-        self.navigationController?.popViewController(animated: true)
-        self.dismiss(animated: true, completion: nil)
+        self.performSegue(withIdentifier: "backToDDTMain", sender: self)
         
     }
     
@@ -133,6 +164,7 @@ class ViewControllerDDTTest: UIViewController {
         let alert = UIAlertController(title: "Awesome", message: "You have finished all the questions!", preferredStyle: .alert)
         
         let restartAction = UIAlertAction(title: "Return", style: .default, handler: { UIAlertAction in
+            
             self.startOver()
         })
         

@@ -7,10 +7,12 @@
 //
 
 import UIKit
+import Alamofire
+import SwiftyJSON
+
 
 class ViewControllerNBackTest: UIViewController {
 
-    
     @IBOutlet weak var image1: UIImageView!
     
     @IBOutlet weak var label1: UILabel!
@@ -35,6 +37,9 @@ class ViewControllerNBackTest: UIViewController {
     
     var nBackList = [String]()
     
+    var dataToServer = ["level": 0, "percentage": 0, "username": "string"] as [String : Any]
+    
+    let defaults = UserDefaults.standard
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -137,7 +142,33 @@ class ViewControllerNBackTest: UIViewController {
                 
                 self.label1.text = "Your correct rate is: \(self.correctRate)"
                 
-                print(Set(self.selectedTrial))
+                //print(Set(self.selectedTrial))
+                
+                self.dataToServer = ["level": self.nBackNum, "percentage": String(format:"%.2f" ,self.correctRate), "username": self.defaults.dictionary(forKey: "currentUserInfo")?["username"] as Any] as [String : Any]
+                
+                print(self.dataToServer)
+                
+                
+                //send data to server
+                Alamofire.request("http://45.113.232.152/nback/save", method: .post, parameters: self.dataToServer, encoding: JSONEncoding.default).responseJSON { (response) in
+                    if response.result.isSuccess{
+                        
+                        print("Success")
+                        let resultJSON : JSON = JSON(response.result.value!)
+                        
+                        print(resultJSON)
+                        
+                    }
+                    else{
+                        
+                        print("Error \(String(describing: response.result.error))")
+                    }
+                    
+                }
+                
+                
+                
+                
                 
                 if self.experimentBlockNum == 4 {
                     
