@@ -39,6 +39,8 @@ class ViewControllerNBackTest: UIViewController {
     
     var dataToServer = ["level": 0, "percentage": 0, "username": "string"] as [String : Any]
     
+    var dataToServerList = [Any]()
+    
     let defaults = UserDefaults.standard
     
     override func viewDidLoad() {
@@ -61,47 +63,33 @@ class ViewControllerNBackTest: UIViewController {
     
     func nBackTest(nBack: Int){
         
-        if nBack == 1{
+        generateNBackList(level: nBack) {
             
-            nBackList = generateOneBackList()
-            print("1-back")
+            print(self.nBackList)
+            print(self.experimentBlockNum)
+            print(self.nBackNum)
             
-        }else if nBack == 2{
             
-            nBackList = generateTwoBackList()
+            self.selectedTrial = []
+            self.length = 0
+            self.correctRate = 0
             
-            print("2-back")
+            self.button2.setTitle("", for: .normal)
+            self.button2.isEnabled = false
+            self.button3.setTitle("", for: .normal)
+            self.button3.isEnabled = false
             
-        }else if nBack == 3{
+            self.label1.text = "1-Back Practice Block"
+            self.label2.text = ""
+            self.image1.image = UIImage(named: "trans")
+            self.button1.setTitle("Button", for: .normal)
+            self.button1.isEnabled = false
             
-            nBackList = genarateThreeBackList()
-            print("3-back")
-            
-        }else{
-            
-            print("nBack number is 1, 2 or 3.")
-        }
-        
-        
-        selectedTrial = []
-        length = 0
-        correctRate = 0
-        
-        button2.setTitle("", for: .normal)
-        button2.isEnabled = false
-        button3.setTitle("", for: .normal)
-        button3.isEnabled = false
-        
-        label1.text = "1-Back Practice Block"
-        label2.text = ""
-        image1.image = UIImage(named: "trans")
-        button1.setTitle("Button", for: .normal)
-        button1.isEnabled = false
-        
-        Timer.after(750.ms) {
-            
-            self.nextNBackTrail()
-            
+            Timer.after(750.ms) {
+                
+                self.nextNBackTrail()
+                
+            }
         }
         
     }
@@ -139,18 +127,21 @@ class ViewControllerNBackTest: UIViewController {
                 self.button1.isEnabled = false
                 
                 self.correctRate = self.calculateCorrectRate(n:self.nBackNum)
+                let percentage = String(format:"%.2f", self.correctRate)
                 
-                self.label1.text = "Your correct rate is: \(self.correctRate)"
+                self.label1.text = "Your correct rate is: \(percentage)"
                 
                 //print(Set(self.selectedTrial))
                 
                 self.dataToServer = ["level": self.nBackNum, "percentage": String(format:"%.2f" ,self.correctRate), "username": self.defaults.dictionary(forKey: "currentUserInfo")?["username"] as Any] as [String : Any]
                 
+                self.dataToServerList.append(self.dataToServer)
+                
                 print(self.dataToServer)
                 
                 
                 //send data to server
-                Alamofire.request("http://45.113.232.152/nback/save", method: .post, parameters: self.dataToServer, encoding: JSONEncoding.default).responseJSON { (response) in
+                Alamofire.request("http://45.113.232.152:8080/nback/save", method: .post, parameters: self.dataToServer, encoding: JSONEncoding.default).responseJSON { (response) in
                     if response.result.isSuccess{
                         
                         print("Success")
@@ -165,9 +156,6 @@ class ViewControllerNBackTest: UIViewController {
                     }
                     
                 }
-                
-                
-                
                 
                 
                 if self.experimentBlockNum == 4 {
@@ -199,17 +187,12 @@ class ViewControllerNBackTest: UIViewController {
     }
     
     
-
-    
     @IBAction func button2Pressed(_ sender: Any) {
         
         experimentBlockNum = experimentBlockNum + 1
         self.nextExperimentBlock()
         
     }
-    
-    
-    
     
     
     
@@ -280,6 +263,70 @@ class ViewControllerNBackTest: UIViewController {
         correctRate = Double(correctNum)/7.0
         
         return correctRate
+    }
+    
+    
+    
+    struct NBackJSON: Codable {
+        var message: String
+        var code: Int
+        var data: NBackData
+    }
+    
+    struct NBackData : Codable{
+        var answers : [Int]
+        var permutation: [String]
+    }
+    
+    
+    func generateNBackList(level: Int, callback:@escaping ()-> Void) {
+        
+        if level == 1{
+            nBackList = ["W", "W", "V", "V", "W", "K", "K", "V", "W", "Q", "Q", "Z", "V", "L", "V", "V", "Z", "Z", "K", "K"]
+        }else if level == 2{
+            nBackList = ["Z", "Q", "Z", "Q", "P", "V", "Z", "P", "Q", "P", "Z", "K", "Q", "K", "L", "K", "C", "K", "C", "L"]
+        }else if level == 3{
+            nBackList = ["W", "W", "W", "W", "Z", "W", "Q", "Z", "W", "P", "L", "W", "Z", "C", "Z", "Q", "C", "W", "Q", "P"]
+        }
+        
+        let parameters = ["level" : level] as [String : Any]
+        
+        Alamofire.request("http://45.113.232.152:8080/nback/request", method: .post, parameters: parameters, encoding: JSONEncoding.default).responseJSON { (response) in
+            if response.result.isSuccess{
+                
+                let resultJSON : JSON = JSON(response.result.value!)
+                
+                if resultJSON["code"] == 200{
+                    
+                    let json = """
+                        \(resultJSON)
+                        """.data(using: .utf8)!
+                    
+                    do {
+                        let decoder = JSONDecoder()
+                        let result = try decoder.decode(NBackJSON.self, from: json)
+                        //print(result.data.permutation)
+                        
+                        self.nBackList = result.data.permutation
+                        callback()
+                        
+                    } catch {
+                        print(error)
+                        
+                    }
+                }
+                else {
+                    print("May have some errors!")
+                    
+                }
+                
+            }
+            else{
+                print("Error \(String(describing: response.result.error))")
+                
+            }
+        }
+    
     }
     
     

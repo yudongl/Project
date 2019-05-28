@@ -22,6 +22,10 @@ class ViewControllerNBackPractice: UIViewController {
     
     @IBOutlet weak var button3: UIButton!
     
+    @IBOutlet weak var repeatOneBack: UIButton!
+    
+    @IBOutlet weak var repeatTwoBack: UIButton!
+    
     
     var length1 = 0
     
@@ -63,11 +67,18 @@ class ViewControllerNBackPractice: UIViewController {
     func oneBackPractice(){
         
         list1 = genarateOneBackPracticeList()
+        length1 = 0
+        answer1 = []
         
         button2.setTitle("", for: .normal)
         button2.isEnabled = false
         button3.setTitle("", for: .normal)
         button3.isEnabled = false
+        
+        repeatOneBack.setTitle("", for: .normal)
+        repeatOneBack.isEnabled = false
+        repeatTwoBack.setTitle("", for: .normal)
+        repeatTwoBack.isEnabled = false
         
         label1.text = "1-Back Practice Block"
         label2.text = ""
@@ -85,12 +96,19 @@ class ViewControllerNBackPractice: UIViewController {
     
     func twoBackPractice(){
         
+        length2 = 0
+        answer2 = []
+        
         list2 = genarateTwoBackPracticeList()
         
         button2.setTitle("", for: .normal)
         button2.isEnabled = false
         button3.setTitle("", for: .normal)
         button3.isEnabled = false
+        repeatOneBack.setTitle("", for: .normal)
+        repeatOneBack.isEnabled = false
+        repeatTwoBack.setTitle("", for: .normal)
+        repeatTwoBack.isEnabled = false
         
         label1.text = "2-Back Practice Block"
         label2.text = ""
@@ -138,6 +156,8 @@ class ViewControllerNBackPractice: UIViewController {
                 self.button1.setTitle("", for: .normal)
                 self.button1.isEnabled = false
                 
+                print(self.answer1)
+                
                 let correctRate = self.calculateCorrectRate(n:1)
                 
                 self.label1.text = "Your correct rate is: \(correctRate)"
@@ -145,6 +165,9 @@ class ViewControllerNBackPractice: UIViewController {
                 print(Set(self.answer1))
                 
                 self.label2.text = "Continue to the 2-back practice"
+                
+                self.repeatOneBack.setTitle("Repeat 1-Back Practice", for: .normal)
+                self.repeatOneBack.isEnabled = true
                 
                 self.button2.setTitle("Continue", for: .normal)
                 self.button2.isEnabled = true
@@ -187,6 +210,8 @@ class ViewControllerNBackPractice: UIViewController {
                 self.button1.setTitle("", for: .normal)
                 self.button1.isEnabled = false
                 
+                print(self.answer2)
+                
                 let correctRate = self.calculateCorrectRate(n:2)
                 
                 self.label1.text = "Your correct rate is: \(correctRate)"
@@ -194,6 +219,9 @@ class ViewControllerNBackPractice: UIViewController {
                 print(Set(self.answer2))
                 
                 self.label2.text = "Continue to the real test"
+                
+                self.repeatTwoBack.setTitle("Repeat 2-Back Practice", for: .normal)
+                self.repeatTwoBack.isEnabled = true
                 
                 self.button3.setTitle("Continue", for: .normal)
                 self.button3.isEnabled = true
@@ -225,6 +253,15 @@ class ViewControllerNBackPractice: UIViewController {
     }
     
     
+    
+    @IBAction func repeatOneBackPressed(_ sender: Any) {
+        self.oneBackPractice()
+    }
+    
+    
+    @IBAction func repeatTwoBackPressed(_ sender: Any) {
+        self.twoBackPractice()
+    }
     
     
     
@@ -302,6 +339,17 @@ class ViewControllerNBackPractice: UIViewController {
     }
     
     
+    public func genarateOneBackPracticeList() -> [String] {
+        
+        return ["W", "W", "V", "V", "W", "K", "K", "V", "W", "Q"]
+        
+    }
+    
+    
+    public func genarateTwoBackPracticeList() -> [String] {
+        
+        return ["W", "V", "W", "V", "Q", "K", "P", "K", "C", "W"]
+    }
     
     
     

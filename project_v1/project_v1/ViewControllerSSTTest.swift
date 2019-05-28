@@ -335,7 +335,11 @@ class ViewControllerSSTTest: UIViewController {
         
         successStopRate = Double(successStopNum)/Double(4)
         
-        avgReactionTime = Double(hitReactionTime)/Double(hitNum)
+        if hitNum != 0{
+            avgReactionTime = Double(hitReactionTime)/Double(hitNum)
+        }else{
+            avgReactionTime = 0.0
+        }
         
         textView1.text = "Results of Practice Block \n - Number of incorrect responses to go stimuli: \(incorrectNum) \n - Number of missed responses to go stimuli: \(missedNum) \n - Average reaction time to go stimuli: \(String(format: "%.2f", avgReactionTime)) \n - Percentage of correctly suppressed responses on stop trials: \(String(format: "%.2f", successStopRate))"
         
@@ -353,11 +357,12 @@ class ViewControllerSSTTest: UIViewController {
         
         if self.length < 19{
             
-            self.length = self.length + 1
-            
             if self.checkAnswer() == "miss" {
                 
                 self.missedNum = self.missedNum + 1
+                
+                //print(self.missedNum)
+                //print(self.checkAnswer())
                 
                 if self.missedNum >= 3 {
                     
@@ -369,6 +374,7 @@ class ViewControllerSSTTest: UIViewController {
                     }
                     
                 }else{
+                    
                     self.nextStimuli()
                     
                 }
@@ -379,13 +385,17 @@ class ViewControllerSSTTest: UIViewController {
                 
             }
             
+            self.length = self.length + 1
+            
         }else{
             
             self.image1.image = UIImage(named: "trans")
             self.getFeedBack()
             
+            print(self.dataToServer)
+            
             //send data to server
-            Alamofire.request("http://45.113.232.152/sst/save", method: .post, parameters: dataToServer, encoding: JSONEncoding.default).responseJSON { (response) in
+            Alamofire.request("http://45.113.232.152:8080/sst/save", method: .post, parameters: dataToServer, encoding: JSONEncoding.default).responseJSON { (response) in
                 if response.result.isSuccess{
                     
                     print("Success")
@@ -431,7 +441,4 @@ class ViewControllerSSTTest: UIViewController {
     }
     
     
-    
-    
-
 }

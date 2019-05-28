@@ -8,5 +8,6 @@ target 'project_v1' do
 
     pod 'SwiftyJSON'
     pod 'Alamofire'
+    pod 'Charts'
 
 end

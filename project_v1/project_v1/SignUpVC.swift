@@ -18,7 +18,9 @@ class SignUpVC: UIViewController {
     
     @IBOutlet weak var passWord: UITextField!
     
-    @IBOutlet weak var name: UITextField!
+    @IBOutlet weak var firstName: UITextField!
+    
+    @IBOutlet weak var lastName: UITextField!
     
     @IBOutlet weak var sex: UITextField!
     
@@ -31,7 +33,8 @@ class SignUpVC: UIViewController {
     var userInfoToRegister = [
         "age": 0,
         "email": "string",
-        "name": "string",
+        "firstName": "string",
+        "lastName": "string",
         "password": "string",
         "researcherId": "string",
         "sex": 0,
@@ -39,14 +42,21 @@ class SignUpVC: UIViewController {
         ] as [String : Any]
     
     
-    
-    
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
+        
+        //Uncomment the line below if you want the tap not not interfere and cancel other interactions.
+        tap.cancelsTouchesInView = false
+        
+        view.addGestureRecognizer(tap)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
     }
     
 
@@ -64,56 +74,71 @@ class SignUpVC: UIViewController {
     
     @IBAction func buttonPressed(_ sender: Any) {
         
-        if userName.text == nil || passWord.text == nil || name.text == nil || sex.text == nil || age.text == nil || eMail.text == nil {
+        if userName.text == nil || passWord.text == nil || firstName.text == nil || lastName.text == nil || sex.text == nil || age.text == nil || eMail.text == nil {
             
+            self.unsuccessRemind()
             print("empty")
             
         }else{
+        
+            var sexNum = 0
+            
+            if sex.text?.lowercased() == "male" {
+                sexNum = 0
+            }else if sex.text?.lowercased() == "female"{
+                sexNum = 1
+            }
             
             userInfoToRegister = [
                 "age": age.text,
                 "email": eMail.text,
-                "name": name.text,
+                "firstName": firstName.text,
+                "lastName": lastName.text,
                 "password": passWord.text,
                 "researcherId": researchID.text,
-                "sex": sex.text,
+                "gender": sexNum,
                 "username": userName.text
                 ] as [String : Any]
             
-            Alamofire.request("http://45.113.232.152/user/register", method: .post, parameters: userInfoToRegister, encoding: JSONEncoding.default).responseJSON { (response) in
+            Alamofire.request("http://45.113.232.152:8080/user/register", method: .post, parameters: userInfoToRegister, encoding: JSONEncoding.default).responseJSON { (response) in
                 if response.result.isSuccess{
                     
-                    print("Success")
+                    //print("Success")
                     let resultJSON : JSON = JSON(response.result.value!)
                     
                     print(resultJSON)
                     //print(resultJSON["code"])
                     
                     if resultJSON["code"] == 200{
-                        self.performSegue(withIdentifier: "SegueToMainMenu", sender: self)
+                        
+                        self.finishedRemind()
+                        //self.performSegue(withIdentifier: "SegueToMainMenu", sender: self)
                     }else {
-                        print("May have some problem in log in.")
+                        
+                        
+                        self.unsuccessRemind()
+                        //print("May have some problem in log in.")
                     }
-                    
-                    self.finishedRemind()
-                    
                     
                 }
                 else{
                     
+                    self.serverFailRemind()
                     print("Error \(String(describing: response.result.error))")
                 }
                 
             }
             
-            
         }
         
-        
-        
-        
-        
     }
+    
+    
+    @IBAction func buttonBackPressed(_ sender: Any) {
+        self.performSegue(withIdentifier: "SegueBackToSignIn", sender: self)
+    }
+    
+    
     
     
     
@@ -121,9 +146,9 @@ class SignUpVC: UIViewController {
         
         let alert = UIAlertController(title: "Congratulations", message: "You have registered successfully!", preferredStyle: .alert)
         
-        let restartAction = UIAlertAction(title: "Return", style: .default, handler: { UIAlertAction in
+        let restartAction = UIAlertAction(title: "Finish", style: .default, handler: { UIAlertAction in
             
-            self.dismiss(animated: true, completion: nil)
+            self.performSegue(withIdentifier: "SegueBackToSignIn", sender: self)
         })
         
         alert.addAction(restartAction)
@@ -132,6 +157,68 @@ class SignUpVC: UIViewController {
     }
     
     
+    func unsuccessRemind(){
+        
+        let alert = UIAlertController(title: "Sorry", message: "Please double check your information!", preferredStyle: .alert)
+        
+        let restartAction = UIAlertAction(title: "Return", style: .default, handler: { UIAlertAction in
+            
+        })
+        
+        alert.addAction(restartAction)
+        
+        present(alert, animated: true, completion: nil)
+    }
+    
+    
+    
+    
+    func serverFailRemind(){
+        
+        let alert = UIAlertController(title: "Sorry", message: "There may be something wrong connecting to the server.", preferredStyle: .alert)
+        
+        let restartAction = UIAlertAction(title: "Return", style: .default, handler: { UIAlertAction in
+            
+            
+        })
+        
+        alert.addAction(restartAction)
+        
+        present(alert, animated: true, completion: nil)
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    @objc func dismissKeyboard() {
+        //Causes the view (or one of its embedded text fields) to resign the first responder status.
+        view.endEditing(true)
+    }
+    
+    @objc func keyboardWillShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            if self.view.frame.origin.y == 0 {
+                self.view.frame.origin.y -= keyboardSize.height
+            }
+        }
+    }
+    
+    @objc func keyboardWillHide(notification: NSNotification) {
+        if self.view.frame.origin.y != 0 {
+            self.view.frame.origin.y = 0
+        }
+    }
     
     
     

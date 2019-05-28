@@ -109,7 +109,7 @@ class ViewControllerDDTTest: UIViewController {
             print(dataToServer)
             
             //send data to server
-            Alamofire.request("http://45.113.232.152/ddt/save", method: .post, parameters: dataToServer, encoding: JSONEncoding.default).responseJSON { (response) in
+            Alamofire.request("http://45.113.232.152:8080/ddt/save", method: .post, parameters: dataToServer, encoding: JSONEncoding.default).responseJSON { (response) in
                 if response.result.isSuccess{
                     
                     print("Success")
