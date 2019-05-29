@@ -84,6 +84,7 @@ class ViewControllerNBackPractice: UIViewController {
         label2.text = ""
         image1.image = UIImage(named: "trans")
         button1.isEnabled = false
+        self.button1.backgroundColor = UIColor.black
         
         Timer.after(750.ms) {
             
@@ -114,7 +115,8 @@ class ViewControllerNBackPractice: UIViewController {
         label2.text = ""
         image1.image = UIImage(named: "trans")
         button1.isEnabled = false
-        button1.setTitle("Button", for: .normal)
+        button1.setTitle("", for: .normal)
+        self.button1.backgroundColor = UIColor.black
         
         Timer.after(750.ms) {
             
@@ -131,9 +133,11 @@ class ViewControllerNBackPractice: UIViewController {
         label2.text = "(get ready)"
         image1.image = UIImage(named: "wait")
         button1.isEnabled = false
+        self.button1.backgroundColor = UIColor.black
         
         Timer.after(500.ms) {
             self.button1.isEnabled = true
+            self.button1.backgroundColor = UIColor.yellow
             self.label2.text = ""
             self.image1.image = UIImage(named: self.list1[self.length1])
         }
@@ -155,6 +159,7 @@ class ViewControllerNBackPractice: UIViewController {
                 //present feedback and go next practice
                 self.button1.setTitle("", for: .normal)
                 self.button1.isEnabled = false
+                self.button1.backgroundColor = UIColor.black
                 
                 print(self.answer1)
                 
@@ -184,9 +189,11 @@ class ViewControllerNBackPractice: UIViewController {
         label2.text = "(get ready)"
         image1.image = UIImage(named: "wait")
         button1.isEnabled = false
+        self.button1.backgroundColor = UIColor.black
         
         Timer.after(500.ms) {
             self.button1.isEnabled = true
+            self.button1.backgroundColor = UIColor.yellow
             self.label2.text = ""
             self.image1.image = UIImage(named: self.list2[self.length2])
         }
@@ -209,6 +216,7 @@ class ViewControllerNBackPractice: UIViewController {
                 //self.length = 0
                 self.button1.setTitle("", for: .normal)
                 self.button1.isEnabled = false
+                self.button1.backgroundColor = UIColor.black
                 
                 print(self.answer2)
                 
@@ -273,6 +281,10 @@ class ViewControllerNBackPractice: UIViewController {
         
         var correctRate = 0.0
         
+        var incorrectNum = 0
+        
+        var score = 0
+        
         if n == 1{
             
             for index1 in Set(answer1){
@@ -281,6 +293,16 @@ class ViewControllerNBackPractice: UIViewController {
                         correctNum = correctNum + 1
                     }
                 }
+            }
+            
+            incorrectNum = Set(answer1).count - correctNum
+            
+            score = correctNum - incorrectNum
+            
+            if score >= 0{
+                correctRate = Double(score)/3.0
+            }else{
+                correctRate = 0.0
             }
             
         }
@@ -294,9 +316,19 @@ class ViewControllerNBackPractice: UIViewController {
                 }
             }
             
+            incorrectNum = Set(answer2).count - correctNum
+            
+            score = correctNum - incorrectNum
+            
+            if score >= 0{
+                correctRate = Double(score)/3.0
+            }else{
+                correctRate = 0.0
+            }
+            
         }
         
-        correctRate = Double(correctNum)/3.0
+        //correctRate = Double(correctNum)/3.0
         
         return String(format:"%.2f", correctRate)
     }

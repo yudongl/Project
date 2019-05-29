@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter your email address" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cKJ-L9-rG3">
-                                <rect key="frame" x="86.666666666666671" y="286.66666666666669" width="240.66666666666663" height="26.333333333333314"/>
+                                <rect key="frame" x="86.666666666666686" y="286.66666666666669" width="241" height="26.333333333333314"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="22"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -445,7 +445,7 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="0.92143100499999997" green="0.92145264149999995" blue="0.92144101860000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="DQP-LV-u1m" firstAttribute="centerY" secondItem="AAo-6g-hzH" secondAttribute="centerY" id="CSi-Hy-utx"/>
                             <constraint firstItem="DQP-LV-u1m" firstAttribute="centerX" secondItem="AAo-6g-hzH" secondAttribute="centerX" id="VeG-J5-BpV"/>
@@ -553,7 +553,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Test" id="8gl-2d-RcB"/>
+                    <tabBarItem key="tabBarItem" title="Test" image="test" selectedImage="test" id="8gl-2d-RcB"/>
                     <navigationItem key="navigationItem" id="T4V-TK-LKi"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -770,7 +770,7 @@ ZSBhbiBPDQo
                                     <action selector="buttonOPressed:" destination="KiD-Zz-5iy" eventType="touchUpInside" id="z3T-DR-sB9"/>
                                 </connections>
                             </button>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EzB-2E-qKi">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="EzB-2E-qKi">
                                 <rect key="frame" x="30" y="268" width="354" height="200"/>
                                 <color key="backgroundColor" white="1" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -980,7 +980,7 @@ Press &lt;skip&gt; to go straight to the actual task.</string>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="icj-fF-dvK">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="icj-fF-dvK">
                                 <rect key="frame" x="30" y="268" width="354" height="200"/>
                                 <color key="backgroundColor" white="1" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -2179,7 +2179,7 @@ Press &lt;Start&gt; to begin your practice.</string>
         <scene sceneID="god-Kx-jpy">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="txP-dM-d9t" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="User Profile" id="wnA-7l-8bv"/>
+                    <tabBarItem key="tabBarItem" title="User Profile" image="user" selectedImage="user" id="wnA-7l-8bv"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="d0v-Pf-70U">
                         <rect key="frame" x="0.0" y="20" width="414" height="44"/>
@@ -2198,7 +2198,7 @@ Press &lt;Start&gt; to begin your practice.</string>
         <scene sceneID="szM-im-dSb">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="r6T-cY-zxD" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Rank" id="iDV-sH-X9l"/>
+                    <tabBarItem key="tabBarItem" title="Rank" image="rank" selectedImage="rank" id="iDV-sH-X9l"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="XEb-eP-46n">
                         <rect key="frame" x="0.0" y="20" width="414" height="44"/>
@@ -2220,17 +2220,21 @@ Press &lt;Start&gt; to begin your practice.</string>
         <image name="NBackIntro3" width="960" height="600"/>
         <image name="SSTX" width="341.33334350585938" height="341.33334350585938"/>
         <image name="Z" width="341.33334350585938" height="341.33334350585938"/>
+        <image name="rank" width="10" height="10"/>
         <image name="stopX" width="341.33334350585938" height="341.33334350585938"/>
+        <image name="test" width="10" height="10"/>
+        <image name="user" width="10" height="10"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="mcM-Xm-7Fq"/>
         <segue reference="Plu-4U-jaf"/>
         <segue reference="1Kh-KJ-hHZ"/>
         <segue reference="8Qi-wW-7OC"/>
         <segue reference="Nk2-z8-zlB"/>
         <segue reference="woZ-QY-zpg"/>
-        <segue reference="Abv-bD-KXf"/>
+        <segue reference="DzX-jP-xel"/>
         <segue reference="3mg-yH-GdU"/>
-        <segue reference="Xt9-ha-vbg"/>
+        <segue reference="LOY-C1-L8d"/>
         <segue reference="ajo-cU-vgh"/>
         <segue reference="xLg-cd-l56"/>
         <segue reference="a0k-Y1-LPx"/>

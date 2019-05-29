@@ -138,10 +138,6 @@ class SignUpVC: UIViewController {
         self.performSegue(withIdentifier: "SegueBackToSignIn", sender: self)
     }
     
-    
-    
-    
-    
     func finishedRemind(){
         
         let alert = UIAlertController(title: "Congratulations", message: "You have registered successfully!", preferredStyle: .alert)
@@ -186,19 +182,6 @@ class SignUpVC: UIViewController {
         
         present(alert, animated: true, completion: nil)
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
     
     @objc func dismissKeyboard() {

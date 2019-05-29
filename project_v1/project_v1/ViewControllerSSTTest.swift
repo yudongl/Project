@@ -32,7 +32,7 @@ class ViewControllerSSTTest: UIViewController {
     
     var practiceList = [Int]()
     
-    let testList = [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 3, 3]
+    let testList = [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 3, 3]
     
     var stopSignalDelay = 250
     
@@ -54,6 +54,7 @@ class ViewControllerSSTTest: UIViewController {
     
     var dataToServer = ["block" : 0, "incorrect" : 0, "missed" : 0, "percentage" : 0, "reactionTime" : 0, "trials" : 0, "username" : "string"] as [String : Any]
     
+    var allDataToServer = [Any]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -333,7 +334,7 @@ class ViewControllerSSTTest: UIViewController {
             
         }
         
-        successStopRate = Double(successStopNum)/Double(4)
+        successStopRate = Double(successStopNum)/Double(5)
         
         if hitNum != 0{
             avgReactionTime = Double(hitReactionTime)/Double(hitNum)
@@ -392,24 +393,21 @@ class ViewControllerSSTTest: UIViewController {
             self.image1.image = UIImage(named: "trans")
             self.getFeedBack()
             
-            print(self.dataToServer)
+            //print(self.dataToServer)
+            
+            self.allDataToServer.append(self.dataToServer)
             
             //send data to server
-            Alamofire.request("http://45.113.232.152:8080/sst/save", method: .post, parameters: dataToServer, encoding: JSONEncoding.default).responseJSON { (response) in
-                if response.result.isSuccess{
-                    
-                    print("Success")
-                    let resultJSON : JSON = JSON(response.result.value!)
-                    
-                    print(resultJSON)
-                    
-                }
-                else{
-                    
-                    print("Error \(String(describing: response.result.error))")
-                }
-                
-            }
+//            Alamofire.request("http://45.113.232.152:8080/sst/save", method: .post, parameters: dataToServer, encoding: JSONEncoding.default).responseJSON { (response) in
+//                if response.result.isSuccess{
+//                    //print("Success")
+//                    //let resultJSON : JSON = JSON(response.result.value!)
+//                    //print(resultJSON)
+//                }
+//                else{
+//                    print("Error \(String(describing: response.result.error))")
+//                }
+//            }
             
             
             if self.experimentBlockNum == 4{
@@ -419,9 +417,32 @@ class ViewControllerSSTTest: UIViewController {
                 self.button1.setTitle("Back to the main menu", for: .normal)
                 self.button1.isEnabled = true
                 
-                print(self.userRespondResult)
+                
+                //send all data to server
+                let parameter = ["records": self.allDataToServer]
+                
+                print(parameter)
+                
+                Alamofire.request("http://45.113.232.152:8080/sst/saveall", method: .post, parameters: parameter, encoding: JSONEncoding.default).responseJSON { (response) in
+                    if response.result.isSuccess{
+                        
+                        print("Success")
+                        let resultJSON : JSON = JSON(response.result.value!)
+                        
+                        print(resultJSON)
+                        
+                    }
+                    else{
+                        
+                        print("Error \(String(describing: response.result.error))")
+                    }
+                    
+                }
+                
+                //print(self.userRespondResult)
                 
                 print("You have finish the test")
+                
             }else{
                 self.experimentBlockNum = self.experimentBlockNum + 1
                 
@@ -430,7 +451,7 @@ class ViewControllerSSTTest: UIViewController {
                 self.button2.setTitle("Continue", for: .normal)
                 self.button2.isEnabled = true
                 
-                print(self.userRespondResult)
+                //print(self.userRespondResult)
                 
                 print("Go to next block")
                 
