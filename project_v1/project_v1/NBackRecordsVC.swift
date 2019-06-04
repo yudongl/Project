@@ -61,6 +61,8 @@ class NBackRecordsVC: UIViewController {
                     \(resultJSON)
                     """.data(using: .utf8)!
                 
+                self.oneBackChart.noDataText = "There is no data for the chart."
+                
                 do {
                     let decoder = JSONDecoder()
                     let result = try decoder.decode(NBackHistory.self, from: json)
@@ -115,6 +117,8 @@ class NBackRecordsVC: UIViewController {
                     \(resultJSON)
                     """.data(using: .utf8)!
                 
+                self.twoBackChart.noDataText = "There is no data for the chart."
+                
                 do {
                     let decoder = JSONDecoder()
                     let result = try decoder.decode(NBackHistory.self, from: json)
@@ -168,6 +172,8 @@ class NBackRecordsVC: UIViewController {
                 let json = """
                     \(resultJSON)
                     """.data(using: .utf8)!
+                
+                self.threeBackChart.noDataText = "There is no data for the chart."
                 
                 do {
                     let decoder = JSONDecoder()

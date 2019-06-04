@@ -9,6 +9,7 @@
 import UIKit
 import Alamofire
 import SwiftyJSON
+import UserNotifications
 
 
 class ViewControllerNBackTest: UIViewController {
@@ -131,7 +132,9 @@ class ViewControllerNBackTest: UIViewController {
                 self.button1.isEnabled = false
                 
                 self.correctRate = self.calculateCorrectRate(n:self.nBackNum)
-                let percentage = String(format:"%.2f", self.correctRate)
+                
+                let correctPercentage = self.correctRate * 100
+                let percentage = String(format:"%.2f", correctPercentage)
                 
                 //Server control whether show result
                 Alamofire.request("http://45.113.232.152:8080/setting/get", method: .get, encoding: JSONEncoding.default).responseJSON { (response) in
@@ -153,7 +156,7 @@ class ViewControllerNBackTest: UIViewController {
                             //print(showResultCode)
                             
                             if showResultCode == 0{
-                                self.label1.text = "Your correct rate is: \(percentage)"
+                                self.label1.text = "Your correct rate is: \(percentage)%"
                             }else{
                                 self.label1.text = ""
                             }
@@ -223,6 +226,11 @@ class ViewControllerNBackTest: UIViewController {
                         
                     }
                     
+                    self.defaults.set(true, forKey: "NBackFinished")
+                    
+                    self.pushNotification()
+                    
+                    
                 }else{
                     
                     self.label2.text = "Continue to the next block"
@@ -241,6 +249,7 @@ class ViewControllerNBackTest: UIViewController {
     @IBAction func button1Pressed(_ sender: Any) {
         
         selectedTrial.append(self.length)
+        print(self.length)
         
     }
     
@@ -251,8 +260,6 @@ class ViewControllerNBackTest: UIViewController {
         self.nextExperimentBlock()
         
     }
-    
-    
     
     
     func nextExperimentBlock(){
@@ -336,7 +343,9 @@ class ViewControllerNBackTest: UIViewController {
             correctRate = 0.0
         }
         
-        self.dataToServer = ["level": self.nBackNum, "percentage": correctRate, "username": self.defaults.dictionary(forKey: "currentUserInfo")?["username"] as Any, "block": self.experimentBlockNum, "trials": 20, "incorrect": incorrectNum, "missed": missedNum] as [String : Any]
+        let correctPercentage = correctRate * 100
+        
+        self.dataToServer = ["level": self.nBackNum, "percentage": correctPercentage, "username": self.defaults.dictionary(forKey: "currentUserInfo")?["username"] as Any, "block": self.experimentBlockNum, "trials": 20, "incorrect": incorrectNum, "missed": missedNum] as [String : Any]
         
         return correctRate
     }
@@ -415,6 +424,44 @@ class ViewControllerNBackTest: UIViewController {
         }
     
     }
+    
+    
+    func pushNotification(){
+        
+        if defaults.bool(forKey: "NBackFinished") == true && defaults.bool(forKey: "DDTFinished") == true && defaults.bool(forKey: "SSTFinished") == true {
+            
+            let center = UNUserNotificationCenter.current()
+            
+            let content = UNMutableNotificationContent()
+            
+            content.title = "Reminder"
+            content.body = "This is a reminder for you to do the N-Back test"
+            content.sound = .default
+            content.categoryIdentifier = "testFinished"
+            
+            //content.userInfo = ["value" : "Data with local notification."]
+            
+            let fireData = Calendar.current.dateComponents([.day, .month, .year, .hour, .minute, .second], from: Date().addingTimeInterval(30.days))
+            
+            let trigger = UNCalendarNotificationTrigger(dateMatching: fireData, repeats: false)
+            
+            let request = UNNotificationRequest(identifier: "Reminder", content: content, trigger: trigger)
+            
+            center.add(request) { (error) in
+                if error != nil{
+                    print("Error local notification.")
+                }
+            }
+            
+            print("local notification success")
+            
+            
+        } else {
+            print("local notification not set")
+        }
+        
+    }
+    
     
     
     

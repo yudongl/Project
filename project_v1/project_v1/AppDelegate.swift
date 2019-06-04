@@ -7,15 +7,25 @@
 //
 
 import UIKit
+import UserNotifications
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
 
     var window: UIWindow?
 
+    let defaults = UserDefaults.standard
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        UNUserNotificationCenter.current().delegate = self
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { (granted, error) in
+            if granted{
+                print("User gave permission to loacal notifications.")
+            }
+        }
+        
         return true
     }
 
@@ -41,6 +51,71 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        
+        completionHandler([.alert,.badge,.sound])
+    }
+    
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        
+        
+        if response.notification.request.content.categoryIdentifier == "nbackNextDay"{
+            
+            print("nback next day reminder")
+            
+        }else if response.notification.request.content.categoryIdentifier == "testFinished" {
+            self.defaults.set(false, forKey: "NBackFinished")
+            self.defaults.set(false, forKey: "DDTFinished")
+            self.defaults.set(false, forKey: "SSTFinished")
+            
+            print("monthly reminder")
+            
+            self.dailyReminder()
+            
+        }else if response.notification.request.content.categoryIdentifier == "dailyReminder" {
+            
+            self.dailyReminder()
+            
+        }
+        
+        completionHandler()
+        
+    }
+    
+    
+    func dailyReminder(){
+        
+        if defaults.bool(forKey: "NBackFinished") == false || defaults.bool(forKey: "DDTFinished") == false || defaults.bool(forKey: "SSTFinished") == false {
+            
+            let center = UNUserNotificationCenter.current()
+            
+            let content = UNMutableNotificationContent()
+            
+            content.title = "Reminder"
+            content.body = "Have you done all the three test this month?"
+            content.sound = .default
+            //content.userInfo = ["value" : "Data with local notification."]
+            content.categoryIdentifier = "dailyReminder"
+            
+            let fireData = Calendar.current.dateComponents([.day, .month, .year, .hour, .minute, .second], from: Date().addingTimeInterval(86400))
+            
+            let trigger = UNCalendarNotificationTrigger(dateMatching: fireData, repeats: false)
+            
+            let request = UNNotificationRequest(identifier: "Reminder", content: content, trigger: trigger)
+            
+            center.add(request) { (error) in
+                if error != nil{
+                    print("Error local notification.")
+                }
+            }
+            
+        }
+        
+    }
+    
+    
+    
 
 }
 

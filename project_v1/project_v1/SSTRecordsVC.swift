@@ -45,6 +45,7 @@ class SSTRecordsVC: UIViewController {
         
         let url = "http://45.113.232.152:8080/sst/getHistoryInfo?bound=10&username=\(userName)"
         
+        self.avgTimeLineChart.noDataText = "There is no data for the chart."
         
         Alamofire.request(url, method: .get, encoding: JSONEncoding.default).responseJSON { (response) in
             if response.result.isSuccess{
@@ -58,17 +59,16 @@ class SSTRecordsVC: UIViewController {
                     """.data(using: .utf8)!
                 
                 do {
+                    
                     let decoder = JSONDecoder()
                     let result = try decoder.decode(SSTHistory.self, from: json)
                     //print(result.data.permutation)
-                    
-                    let nbackHistoryList = result.data[0].reactionTime
-                    print(nbackHistoryList)
-                    
+
+                        
                     self.avgTimeLineChart.noDataText = "There is no data for the chart."
                     var dataEntries:[ChartDataEntry] = []
                     for i in 0..<result.data.count{
-                        
+                            
                         let dataEntry = ChartDataEntry(x: Double(i+1), y: Double(result.data[i].reactionTime))
                         print(dataEntry)
                         dataEntries.append(dataEntry)
@@ -101,6 +101,7 @@ class SSTRecordsVC: UIViewController {
         
         let url = "http://45.113.232.152:8080/sst/getHistoryInfo?bound=10&username=\(userName)"
         
+        self.correctRateLineChart.noDataText = "There is no data for the chart."
         
         Alamofire.request(url, method: .get, encoding: JSONEncoding.default).responseJSON { (response) in
             if response.result.isSuccess{
@@ -114,12 +115,11 @@ class SSTRecordsVC: UIViewController {
                     """.data(using: .utf8)!
                 
                 do {
+                    
                     let decoder = JSONDecoder()
                     let result = try decoder.decode(SSTHistory.self, from: json)
                     //print(result.data.permutation)
                     
-                    let nbackHistoryList = result.data[0].reactionTime
-                    print(nbackHistoryList)
                     
                     self.correctRateLineChart.noDataText = "There is no data for the chart."
                     var dataEntries:[ChartDataEntry] = []
@@ -134,6 +134,9 @@ class SSTRecordsVC: UIViewController {
                     let chartData = LineChartData(dataSet: chartDataSet)
                     self.correctRateLineChart.data = chartData
                     self.correctRateLineChart.xAxis.labelPosition = .bottom
+                    
+                    
+                    
                     
                     
                 } catch {

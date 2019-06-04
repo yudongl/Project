@@ -9,13 +9,13 @@
 import UIKit
 import Alamofire
 import SwiftyJSON
+import UserNotifications
 
 
 class ViewControllerDDTTest: UIViewController {
 
     
     @IBOutlet weak var ButtonAnswer1: UIButton!
-    
     
     @IBOutlet weak var ButtonAnswer2: UIButton!
     
@@ -125,7 +125,9 @@ class ViewControllerDDTTest: UIViewController {
                 
             }
             
+            self.defaults.set(true, forKey: "DDTFinished")
             
+            self.pushNotification()
             
             
             self.finishedRemind()
@@ -135,6 +137,48 @@ class ViewControllerDDTTest: UIViewController {
         nextQuestion()
         
     }
+    
+    
+    func pushNotification(){
+        
+        if defaults.bool(forKey: "NBackFinished") == true && defaults.bool(forKey: "DDTFinished") == true && defaults.bool(forKey: "SSTFinished") == true {
+            
+            let center = UNUserNotificationCenter.current()
+            
+            let content = UNMutableNotificationContent()
+            
+            content.title = "Reminder"
+            content.body = "This is a reminder for you to do the N-Back test"
+            content.sound = .default
+            content.categoryIdentifier = "testFinished"
+            //content.userInfo = ["value" : "Data with local notification."]
+            
+            let fireData = Calendar.current.dateComponents([.day, .month, .year, .hour, .minute, .second], from: Date().addingTimeInterval(30.days))
+            
+            let trigger = UNCalendarNotificationTrigger(dateMatching: fireData, repeats: false)
+            
+            let request = UNNotificationRequest(identifier: "Reminder", content: content, trigger: trigger)
+            
+            center.add(request) { (error) in
+                if error != nil{
+                    print("Error local notification.")
+                }
+            }
+            
+            print("local notification success")
+            
+            
+        } else {
+            print("local notification not set")
+        }
+        
+    }
+    
+    
+    
+    
+    
+    
     
     
     func nextQuestion(){

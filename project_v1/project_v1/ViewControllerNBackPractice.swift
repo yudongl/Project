@@ -165,7 +165,7 @@ class ViewControllerNBackPractice: UIViewController {
                 
                 let correctRate = self.calculateCorrectRate(n:1)
                 
-                self.label1.text = "Your correct rate is: \(correctRate)"
+                self.label1.text = "Your correct rate is: \(correctRate)%"
                 
                 print(Set(self.answer1))
                 
@@ -222,7 +222,7 @@ class ViewControllerNBackPractice: UIViewController {
                 
                 let correctRate = self.calculateCorrectRate(n:2)
                 
-                self.label1.text = "Your correct rate is: \(correctRate)"
+                self.label1.text = "Your correct rate is: \(correctRate)%"
                 
                 print(Set(self.answer2))
                 
@@ -300,7 +300,7 @@ class ViewControllerNBackPractice: UIViewController {
             score = correctNum - incorrectNum
             
             if score >= 0{
-                correctRate = Double(score)/3.0
+                correctRate = Double(score)/3.0*100
             }else{
                 correctRate = 0.0
             }
@@ -321,7 +321,7 @@ class ViewControllerNBackPractice: UIViewController {
             score = correctNum - incorrectNum
             
             if score >= 0{
-                correctRate = Double(score)/3.0
+                correctRate = Double(score)/3.0 * 100
             }else{
                 correctRate = 0.0
             }

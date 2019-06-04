@@ -7,13 +7,35 @@
 //
 
 import UIKit
+import Charts
+import Alamofire
+import SwiftyJSON
 
 class SSTRankVC: UIViewController {
 
+    
+    @IBOutlet weak var avgTimeRankChart: BarChartView!
+    
+    
+    @IBOutlet weak var rankPercentage: UILabel!
+    
+    
+    
+    let defaults = UserDefaults.standard
+    
+    weak var axisFormatDelegate: IAxisValueFormatter?
+    
+    var timeInterval = [String]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        axisFormatDelegate = self
         // Do any additional setup after loading the view.
+        
+        timeInterval = ["0-100", "100-200", "200-300", "300-400", "400-500", "500-600", "600-700", "700-800", "800-900", "900-1000"]
+        
+        updateAvgTimeChart(rankName: "getReactionTimeRank")
     }
     
 
@@ -26,5 +48,130 @@ class SSTRankVC: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    
+    
+    @IBAction func avgReactionTimeRank(_ sender: Any) {
+        
+        timeInterval = ["0-100", "100-200", "200-300", "300-400", "400-500", "500-600", "600-700", "700-800", "800-900", "900-1000"]
+        
+        updateAvgTimeChart(rankName: "getReactionTimeRank")
+        
+    }
+    
+    
+    
+    @IBAction func stopSignalCorrectRate(_ sender: Any) {
+        
+        timeInterval = ["0-10", "10-20", "20-30", "30-40", "40-50", "50-60", "60-70", "70-80", "80-90", "90-100"]
+        
+        updateAvgTimeChart(rankName: "getStopSignalRank")
+        
+    }
+    
+    
+    @IBAction func normalSignalCorrectRate(_ sender: Any) {
+        
+        timeInterval = ["0-10", "10-20", "20-30", "30-40", "40-50", "50-60", "60-70", "70-80", "80-90", "90-100"]
+        
+        updateAvgTimeChart(rankName: "getGoStimuliRank")
+        
+    }
+    
+    
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    
+    func updateAvgTimeChart(rankName : String){
+        
+        let userName = defaults.dictionary(forKey: "currentUserInfo")?["username"] as! String
+        
+        let url = "http://45.113.232.152:8080/sst/\(rankName)?username=\(userName)"
+        
+        Alamofire.request(url, method: .get, encoding: JSONEncoding.default).responseJSON { (response) in
+            if response.result.isSuccess{
+                
+                let resultJSON : JSON = JSON(response.result.value!)
+                print(resultJSON)
+                
+                let json = """
+                    \(resultJSON)
+                    """.data(using: .utf8)!
+                
+                do {
+                    let decoder = JSONDecoder()
+                    let result = try decoder.decode(SSTRankHistory.self, from: json)
+                    //print(result.data.permutation)
+                    
+                    let sstRankList = result.data.list
+                    print(sstRankList)
+                    
+                    self.setChart(dataEntryX: self.timeInterval, dataEntryY: sstRankList)
+                    
+                    self.rankPercentage.text = ("You are in the first \(result.data.myPercentage)% of all users.")
+                    
+                    
+                } catch {
+                    print(error)
+                    
+                }
+                
+            }
+            else{
+                print("Error \(String(describing: response.result.error))")
+                
+            }
+        }
+    }
+    
+    
+    func setChart(dataEntryX forX:[String],dataEntryY forY: [Double]) {
+        avgTimeRankChart.noDataText = "You need to provide data for the chart."
+        var dataEntries:[BarChartDataEntry] = []
+        for i in 0..<forX.count{
+            
+            let dataEntry = BarChartDataEntry(x: Double(i), y: Double(forY[i]) , data: timeInterval as AnyObject?)
+            //print(dataEntry)
+            dataEntries.append(dataEntry)
+        }
+        let chartDataSet = BarChartDataSet(values: dataEntries, label: "SST time/percentage interval")
+        let chartData = BarChartData(dataSet: chartDataSet)
+        avgTimeRankChart.data = chartData
+        let xAxisValue = avgTimeRankChart.xAxis
+        xAxisValue.labelPosition = .bottom
+        xAxisValue.valueFormatter = axisFormatDelegate
+        
+    }
+    
+    
+    
+    
+    struct SSTRankHistory : Codable{
+        var code : Int
+        var message: String
+        var data: SSTRankData
+    }
+    
+    
+    struct SSTRankData : Codable{
+        
+        var myPercentage: Double
+        var list: [Double]
+        var myGapPosition: Int
+        var myScore: Double
+        
+    }
+    
 
+}
+
+
+extension SSTRankVC: IAxisValueFormatter {
+    
+    func stringForValue(_ value: Double, axis: AxisBase?) -> String {
+        return timeInterval[Int(value)]
+    }
 }

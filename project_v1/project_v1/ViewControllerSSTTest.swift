@@ -9,6 +9,7 @@
 import UIKit
 import Alamofire
 import SwiftyJSON
+import UserNotifications
 
 
 class ViewControllerSSTTest: UIViewController {
@@ -334,7 +335,7 @@ class ViewControllerSSTTest: UIViewController {
             
         }
         
-        successStopRate = Double(successStopNum)/Double(5)
+        successStopRate = Double(successStopNum)/Double(5) * 100
         
         if hitNum != 0{
             avgReactionTime = Double(hitReactionTime)/Double(hitNum)
@@ -342,7 +343,10 @@ class ViewControllerSSTTest: UIViewController {
             avgReactionTime = 0.0
         }
         
-        textView1.text = "Results of Practice Block \n - Number of incorrect responses to go stimuli: \(incorrectNum) \n - Number of missed responses to go stimuli: \(missedNum) \n - Average reaction time to go stimuli: \(String(format: "%.2f", avgReactionTime)) \n - Percentage of correctly suppressed responses on stop trials: \(String(format: "%.2f", successStopRate))"
+        
+        
+        
+        textView1.text = "Result \n - Number of incorrect responses to go stimuli: \(incorrectNum) \n - Number of missed responses to go stimuli: \(missedNum) \n - Average reaction time to go stimuli: \(String(format: "%.2f", avgReactionTime)) \n - Percentage of correctly suppressed responses on stop trials: \(String(format: "%.2f", successStopRate))"
         
         dataToServer = ["block" : experimentBlockNum, "incorrect" : incorrectNum, "missed" : missedNum, "percentage" : successStopRate, "reactionTime" : avgReactionTime, "trials" : 20, "username" : defaults.dictionary(forKey: "currentUserInfo")?["username"] as Any] as [String : Any]
         
@@ -443,6 +447,12 @@ class ViewControllerSSTTest: UIViewController {
                 
                 print("You have finish the test")
                 
+                
+                self.defaults.set(true, forKey: "SSTFinished")
+                
+                self.pushNotification()
+                
+                
             }else{
                 self.experimentBlockNum = self.experimentBlockNum + 1
                 
@@ -460,6 +470,44 @@ class ViewControllerSSTTest: UIViewController {
         }
         
     }
+    
+    
+    func pushNotification(){
+        
+        if defaults.bool(forKey: "NBackFinished") == true && defaults.bool(forKey: "DDTFinished") == true && defaults.bool(forKey: "SSTFinished") == true {
+            
+            let center = UNUserNotificationCenter.current()
+            
+            let content = UNMutableNotificationContent()
+            
+            content.title = "Reminder"
+            content.body = "This is a reminder for you to do the N-Back test"
+            content.sound = .default
+            content.categoryIdentifier = "testFinished"
+            //content.userInfo = ["value" : "Data with local notification."]
+            
+            let fireData = Calendar.current.dateComponents([.day, .month, .year, .hour, .minute, .second], from: Date().addingTimeInterval(30.days))
+            
+            let trigger = UNCalendarNotificationTrigger(dateMatching: fireData, repeats: false)
+            
+            let request = UNNotificationRequest(identifier: "Reminder", content: content, trigger: trigger)
+            
+            center.add(request) { (error) in
+                if error != nil{
+                    print("Error local notification.")
+                }
+            }
+            
+            print("local notification success")
+            
+            
+        } else {
+            print("local notification not set")
+        }
+        
+    }
+    
+    
     
     
 }

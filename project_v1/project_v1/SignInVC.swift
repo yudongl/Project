@@ -71,6 +71,7 @@ class SignInVC: UIViewController {
             
             defaults.set(self.userDict, forKey: "currentUserInfo")
             
+            
             self.checkUserInfo()
             
         }
