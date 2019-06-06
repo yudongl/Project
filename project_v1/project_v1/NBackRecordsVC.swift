@@ -69,7 +69,7 @@ class NBackRecordsVC: UIViewController {
                     //print(result.data.permutation)
                     
                     let nbackHistoryList = result.data.records
-                    print(nbackHistoryList)
+                    //print(nbackHistoryList)
                     
                     self.oneBackChart.noDataText = "There is no data for the chart."
                     var dataEntries:[ChartDataEntry] = []
@@ -79,11 +79,18 @@ class NBackRecordsVC: UIViewController {
                         print(dataEntry)
                         dataEntries.append(dataEntry)
                     }
-                    let chartDataSet = LineChartDataSet(values: dataEntries, label: "Last 10 1-Back Records")
-                    let chartData = LineChartData(dataSet: chartDataSet)
-                    self.oneBackChart.data = chartData
-                    self.oneBackChart.xAxis.labelPosition = .bottom
                     
+                    if dataEntries.count > 0{
+                    
+                        let chartDataSet = LineChartDataSet(values: dataEntries, label: "Last 10 1-Back Records")
+                        let chartData = LineChartData(dataSet: chartDataSet)
+                        self.oneBackChart.data = chartData
+                        self.oneBackChart.xAxis.labelPosition = .bottom
+                    }else{
+                        self.oneBackChart.noDataText = "There is no data for the chart."
+                    }
+                        
+                        
                 } catch {
                     print(error)
                     
@@ -125,7 +132,7 @@ class NBackRecordsVC: UIViewController {
                     //print(result.data.permutation)
                     
                     let nbackHistoryList = result.data.records
-                    print(nbackHistoryList)
+                    //print(nbackHistoryList)
                     
                     self.twoBackChart.noDataText = "There is no data for the chart."
                     var dataEntries:[ChartDataEntry] = []
@@ -135,11 +142,16 @@ class NBackRecordsVC: UIViewController {
                         print(dataEntry)
                         dataEntries.append(dataEntry)
                     }
-                    let chartDataSet = LineChartDataSet(values: dataEntries, label: "Last 10 2-Back Records")
-                    let chartData = LineChartData(dataSet: chartDataSet)
-                    self.twoBackChart.data = chartData
-                    self.twoBackChart.xAxis.labelPosition = .bottom
                     
+                    if dataEntries.count > 0{
+                    
+                        let chartDataSet = LineChartDataSet(values: dataEntries, label: "Last 10 2-Back Records")
+                        let chartData = LineChartData(dataSet: chartDataSet)
+                        self.twoBackChart.data = chartData
+                        self.twoBackChart.xAxis.labelPosition = .bottom
+                    }else{
+                        self.twoBackChart.noDataText = "There is no data for the chart."
+                    }
                     
                 } catch {
                     print(error)
@@ -181,7 +193,7 @@ class NBackRecordsVC: UIViewController {
                     //print(result.data.permutation)
                     
                     let nbackHistoryList = result.data.records
-                    print(nbackHistoryList)
+                    //print(nbackHistoryList)
                     
                     self.threeBackChart.noDataText = "There is no data for the chart."
                     var dataEntries:[ChartDataEntry] = []
@@ -191,11 +203,16 @@ class NBackRecordsVC: UIViewController {
                         print(dataEntry)
                         dataEntries.append(dataEntry)
                     }
-                    let chartDataSet = LineChartDataSet(values: dataEntries, label: "Last 10 3-Back Records")
-                    let chartData = LineChartData(dataSet: chartDataSet)
-                    self.threeBackChart.data = chartData
-                    self.threeBackChart.xAxis.labelPosition = .bottom
                     
+                    if dataEntries.count > 0{
+                    
+                        let chartDataSet = LineChartDataSet(values: dataEntries, label: "Last 10 3-Back Records")
+                        let chartData = LineChartData(dataSet: chartDataSet)
+                        self.threeBackChart.data = chartData
+                        self.threeBackChart.xAxis.labelPosition = .bottom
+                    }else{
+                        self.threeBackChart.noDataText = "There is no data for the chart."
+                    }
                     
                 } catch {
                     print(error)

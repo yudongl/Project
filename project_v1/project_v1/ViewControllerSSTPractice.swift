@@ -50,23 +50,14 @@ class ViewControllerSSTPractice: UIViewController {
         stopSignalTask()
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-    
     
     func stopSignalTask(){
         
         userRespondResult = []
         missedNum = 0
         
+        textView1.textAlignment = .center
+        textView1.textColor = UIColor.white
         textView1.text = "Practice Block"
         label2.text = ""
         image1.image = UIImage(named: "trans")
@@ -89,6 +80,8 @@ class ViewControllerSSTPractice: UIViewController {
         
         
         selectedAnswer = -1
+        textView1.textAlignment = .center
+        textView1.textColor = UIColor.white
         textView1.text = "(wait)"
         
         Timer.after(1000.ms) {
@@ -105,7 +98,6 @@ class ViewControllerSSTPractice: UIViewController {
             self.timer = Timer.every(1.ms, {
                 self.hitTime = self.hitTime + 1
             })
-            
             
             
             if self.practiceList[self.length] == 0{
@@ -401,8 +393,13 @@ class ViewControllerSSTPractice: UIViewController {
             self.missedNum = self.missedNum + 1
             
             if self.missedNum >= 3 {
+                
+                self.textView1.textColor = UIColor.red
                 self.textView1.text = "You MUST respond to X/O go stimuli as fast as possible"
+                
             }else{
+                
+                self.textView1.textColor = UIColor.red
                 self.textView1.text = "Miss (you must go faster)"
             }
             
@@ -411,29 +408,38 @@ class ViewControllerSSTPractice: UIViewController {
             self.missedNum = 0
             
             if self.userRespondTime > 500 {
+                
+                self.textView1.textColor = UIColor.yellow
                 self.textView1.text = "Hit (but try to go faster)"
+                
             }else {
+                
+                self.textView1.textColor = UIColor.green
                 self.textView1.text = "Hit"
             }
             
         }else if self.checkAnswer() == "incorrect" {
             
             self.missedNum = 0
+            self.textView1.textColor = UIColor.red
             self.textView1.text = "Miss (incorrect button)"
             
         }else if self.checkAnswer() == "successful stop" {
             
             self.missedNum = 0
+            self.textView1.textColor = UIColor.green
             self.textView1.text = "Successful stop - Well done!"
             
         }else if self.checkAnswer() == "unsuccessful stop" {
             
             self.missedNum = 0
+            self.textView1.textColor = UIColor.red
             self.textView1.text = "Unsuccessful stop \n – You should not have pressed any button"
             
         }else{
             
             self.missedNum = 0
+            self.textView1.textColor = UIColor.red
             self.textView1.text = "There may have some problems"
             
         }
@@ -475,8 +481,6 @@ class ViewControllerSSTPractice: UIViewController {
             
         }
         
-        //print(list1)
-        //print(list2)
         
         var i = 0
         
@@ -501,6 +505,8 @@ class ViewControllerSSTPractice: UIViewController {
         
         avgReactionTime = Double(hitReactionTime)/Double(hitNum)
         
+        textView1.textAlignment = .left
+        textView1.textColor = UIColor.white
         textView1.text = "Results of Practice Block \n - Number of incorrect responses to go stimuli: \(incorrectNum) \n - Number of missed responses to go stimuli: \(missedNum) \n - Average reaction time to go stimuli: \(String(format: "%.2f", avgReactionTime)) \n - Percentage of correctly suppressed responses on stop trials: \(String(format: "%.2f", successStopRate))"
         
     }

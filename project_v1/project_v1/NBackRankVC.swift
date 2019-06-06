@@ -17,11 +17,13 @@ class NBackRankVC: UIViewController {
     
     weak var axisFormatDelegate: IAxisValueFormatter?
     
-    let correctRateInterval = ["0-10", "10-20", "20-30", "30-40", "40-50", "50-60", "60-70", "70-80", "80-90", "90-100"]
+    let correctRateInterval = ["0%-10%", "10%-20%", "20%-30%", "30%-40%", "40%-50%", "50%-60%", "60%-70%", "70%-80%", "80%-90%", "90%-100%"]
     
     
     @IBOutlet weak var nBackRankChart: BarChartView!
     
+    
+    @IBOutlet weak var lastRecord: UILabel!
     
     @IBOutlet weak var rankInfo: UILabel!
     
@@ -87,7 +89,7 @@ class NBackRankVC: UIViewController {
             if response.result.isSuccess{
                 
                 let resultJSON : JSON = JSON(response.result.value!)
-                print(resultJSON)
+                //print(resultJSON)
                 
                 let json = """
                     \(resultJSON)
@@ -104,6 +106,8 @@ class NBackRankVC: UIViewController {
                     self.setChart(dataEntryX: self.correctRateInterval, dataEntryY: nBackRankList, target: Double(result.data.myGapPosition))
                     
                     self.rankInfo.text = "You are in the first \(result.data.myPercentage)% of all users."
+                    
+                    self.lastRecord.text = "Your last \(level)-back correct rate is \(result.data.myScore)%."
                     
                 } catch {
                     print(error)

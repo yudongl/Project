@@ -16,8 +16,9 @@ class SSTRankVC: UIViewController {
     
     @IBOutlet weak var avgTimeRankChart: BarChartView!
     
-    
     @IBOutlet weak var rankPercentage: UILabel!
+    
+    @IBOutlet weak var lastRecord: UILabel!
     
     
     
@@ -33,7 +34,7 @@ class SSTRankVC: UIViewController {
         axisFormatDelegate = self
         // Do any additional setup after loading the view.
         
-        timeInterval = ["0-100", "100-200", "200-300", "300-400", "400-500", "500-600", "600-700", "700-800", "800-900", "900-1000"]
+        timeInterval = ["0-100ms", "100ms-200ms", "200ms-300ms", "300ms-400ms", "400ms-500ms", "500ms-600ms", "600ms-700ms", "700ms-800ms", "800ms-900ms", "900ms-1000ms"]
         
         updateAvgTimeChart(rankName: "getReactionTimeRank")
     }
@@ -52,7 +53,7 @@ class SSTRankVC: UIViewController {
     
     @IBAction func avgReactionTimeRank(_ sender: Any) {
         
-        timeInterval = ["0-100", "100-200", "200-300", "300-400", "400-500", "500-600", "600-700", "700-800", "800-900", "900-1000"]
+        timeInterval = ["0-100ms", "100ms-200ms", "200ms-300ms", "300ms-400ms", "400ms-500ms", "500ms-600ms", "600ms-700ms", "700ms-800ms", "800ms-900ms", "900ms-1000ms"]
         
         updateAvgTimeChart(rankName: "getReactionTimeRank")
         
@@ -62,7 +63,7 @@ class SSTRankVC: UIViewController {
     
     @IBAction func stopSignalCorrectRate(_ sender: Any) {
         
-        timeInterval = ["0-10", "10-20", "20-30", "30-40", "40-50", "50-60", "60-70", "70-80", "80-90", "90-100"]
+        timeInterval = ["0-10%", "10%-20%", "20%-30%", "30%-40%", "40%-50%", "50%-60%", "60%-70%", "70%-80%", "80%-90%", "90%-100%"]
         
         updateAvgTimeChart(rankName: "getStopSignalRank")
         
@@ -71,7 +72,7 @@ class SSTRankVC: UIViewController {
     
     @IBAction func normalSignalCorrectRate(_ sender: Any) {
         
-        timeInterval = ["0-10", "10-20", "20-30", "30-40", "40-50", "50-60", "60-70", "70-80", "80-90", "90-100"]
+        timeInterval = ["0-10%", "10%-20%", "20%-30%", "30%-40%", "40%-50%", "50%-60%", "60%-70%", "70%-80%", "80%-90%", "90%-100%"]
         
         updateAvgTimeChart(rankName: "getGoStimuliRank")
         
@@ -112,6 +113,16 @@ class SSTRankVC: UIViewController {
                     self.setChart(dataEntryX: self.timeInterval, dataEntryY: sstRankList)
                     
                     self.rankPercentage.text = ("You are in the first \(result.data.myPercentage)% of all users.")
+                    
+                    if rankName == "getReactionTimeRank" {
+                        self.lastRecord.text = ("Your last average reaction time is \(result.data.myScore)ms.")
+                    }else if rankName == "getStopSignalRank" {
+                        self.lastRecord.text = ("Your last stop signal correct rate is \(result.data.myScore)%.")
+                    }else if rankName == "getGoStimuliRank" {
+                        self.lastRecord.text = ("Your last normal trials correct rate is \(result.data.myScore)%.")
+                    }else{
+                        
+                    }
                     
                     
                 } catch {

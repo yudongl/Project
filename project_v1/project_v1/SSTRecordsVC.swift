@@ -62,8 +62,7 @@ class SSTRecordsVC: UIViewController {
                     
                     let decoder = JSONDecoder()
                     let result = try decoder.decode(SSTHistory.self, from: json)
-                    //print(result.data.permutation)
-
+                    //print(result.data[0].missed)
                         
                     self.avgTimeLineChart.noDataText = "There is no data for the chart."
                     var dataEntries:[ChartDataEntry] = []
@@ -73,10 +72,18 @@ class SSTRecordsVC: UIViewController {
                         print(dataEntry)
                         dataEntries.append(dataEntry)
                     }
-                    let chartDataSet = LineChartDataSet(values: dataEntries, label: "Last 10 SST average reaction time/ms")
-                    let chartData = LineChartData(dataSet: chartDataSet)
-                    self.avgTimeLineChart.data = chartData
-                    self.avgTimeLineChart.xAxis.labelPosition = .bottom
+                    
+                    print(dataEntries)
+                    
+                    if dataEntries.count > 0{
+                    
+                        let chartDataSet = LineChartDataSet(values: dataEntries, label: "Last 10 SST average reaction time/ms")
+                        let chartData = LineChartData(dataSet: chartDataSet)
+                        self.avgTimeLineChart.data = chartData
+                        self.avgTimeLineChart.xAxis.labelPosition = .bottom
+                    }else{
+                        self.avgTimeLineChart.noDataText = "There is no data for the chart."
+                    }
                     
                     
                 } catch {
@@ -129,15 +136,16 @@ class SSTRecordsVC: UIViewController {
                         print(dataEntry)
                         dataEntries.append(dataEntry)
                     }
-                    let chartDataSet = LineChartDataSet(values: dataEntries, label: "Last 10 SST correct rate")
-                    chartDataSet.colors = [UIColor(red: 230/255, green: 126/255, blue: 34/255, alpha: 1)]
-                    let chartData = LineChartData(dataSet: chartDataSet)
-                    self.correctRateLineChart.data = chartData
-                    self.correctRateLineChart.xAxis.labelPosition = .bottom
                     
-                    
-                    
-                    
+                    if dataEntries.count > 0{
+                        let chartDataSet = LineChartDataSet(values: dataEntries, label: "Last 10 SST correct rate")
+                        chartDataSet.colors = [UIColor(red: 230/255, green: 126/255, blue: 34/255, alpha: 1)]
+                        let chartData = LineChartData(dataSet: chartDataSet)
+                        self.correctRateLineChart.data = chartData
+                        self.correctRateLineChart.xAxis.labelPosition = .bottom
+                    }else{
+                        self.correctRateLineChart.noDataText = "There is no data for the chart."
+                    }
                     
                 } catch {
                     print(error)
@@ -150,13 +158,6 @@ class SSTRecordsVC: UIViewController {
                 
             }
         }
-        
-        
-        
-        
-        
-        
-        
         
         
     }

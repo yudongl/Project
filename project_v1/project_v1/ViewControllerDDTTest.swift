@@ -14,12 +14,13 @@ import UserNotifications
 
 class ViewControllerDDTTest: UIViewController {
 
-    
+    //the first option
     @IBOutlet weak var ButtonAnswer1: UIButton!
     
+    //the second option
     @IBOutlet weak var ButtonAnswer2: UIButton!
     
-    
+    //27 questions list
     let questionList = [["questionNum": 1, "option1": "$54 today", "option2": "$55 in 117 days"],
                         ["questionNum": 2, "option1": "$55 today", "option2": "$75 in 61 days"],
                         ["questionNum": 3, "option1": "$19 today", "option2": "$25 in 53 days"],
@@ -48,19 +49,19 @@ class ViewControllerDDTTest: UIViewController {
                         ["questionNum": 26, "option1": "$22 today", "option2": "$25 in 136 days"],
                         ["questionNum": 27, "option1": "$20 today", "option2": "$55 in 7 days"],]
     
-    
+    //user selected answer
     var pickedAnswer = 1
     
-    
+    //record the user selected answer list
     var answerList:[[Int]] = []
     
-    
+    //random order of the 27 questions
     let questionIndex = Array(0...26).shuffled()
     
-    
+    //current question number
     var questionNum = 0
     
-    
+    //results that need to be save to server
     var dataToServer = ["answers": [[0,0]], "username": "string"] as [String : Any]
     
     
@@ -73,24 +74,15 @@ class ViewControllerDDTTest: UIViewController {
 
         // Do any additional setup after loading the view.
         
+        //begin with the first question
         nextQuestion()
         
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-    
     
     @IBAction func buttonPressed(_ sender: AnyObject) {
         
+        //record the user selected answer every timer the user pressed the button
         if sender.tag == 1 {
             pickedAnswer = 1
             answerList.append([questionIndex[questionNum], pickedAnswer])
@@ -100,22 +92,24 @@ class ViewControllerDDTTest: UIViewController {
             answerList.append([questionIndex[questionNum], pickedAnswer])
         }
         
+        //push forword to the next question
         questionNum = questionNum + 1
         
+        //the user finishes all the 27 questions
         if questionNum == 27 {
             
             dataToServer = ["answers": answerList, "username": defaults.dictionary(forKey: "currentUserInfo")?["username"] as Any] as [String : Any]
             
-            print(dataToServer)
+            //print(dataToServer)
             
             //send data to server
             Alamofire.request("http://45.113.232.152:8080/ddt/save", method: .post, parameters: dataToServer, encoding: JSONEncoding.default).responseJSON { (response) in
                 if response.result.isSuccess{
                     
                     print("Success")
-                    let resultJSON : JSON = JSON(response.result.value!)
+                    //let resultJSON : JSON = JSON(response.result.value!)
                     
-                    print(resultJSON)
+                    //print(resultJSON)
                     
                 }
                 else{
@@ -125,20 +119,23 @@ class ViewControllerDDTTest: UIViewController {
                 
             }
             
+            //set the ddt finished status to true
             self.defaults.set(true, forKey: "DDTFinished")
             
+            //send notification
             self.pushNotification()
             
-            
+            //give the user finish remind
             self.finishedRemind()
             
         }
         
+        //go to next question
         nextQuestion()
         
     }
     
-    
+    //if the user finishes all the three tests, push local notifacation to remind the user to do the tests after a month
     func pushNotification(){
         
         if defaults.bool(forKey: "NBackFinished") == true && defaults.bool(forKey: "DDTFinished") == true && defaults.bool(forKey: "SSTFinished") == true {
@@ -148,10 +145,9 @@ class ViewControllerDDTTest: UIViewController {
             let content = UNMutableNotificationContent()
             
             content.title = "Reminder"
-            content.body = "This is a reminder for you to do the N-Back test"
+            content.body = "Have you finish the three tests this month?"
             content.sound = .default
             content.categoryIdentifier = "testFinished"
-            //content.userInfo = ["value" : "Data with local notification."]
             
             let fireData = Calendar.current.dateComponents([.day, .month, .year, .hour, .minute, .second], from: Date().addingTimeInterval(30.days))
             
@@ -180,7 +176,7 @@ class ViewControllerDDTTest: UIViewController {
     
     
     
-    
+    //change the question option text
     func nextQuestion(){
         
         if questionNum <= 26 {
@@ -195,14 +191,14 @@ class ViewControllerDDTTest: UIViewController {
         
     }
     
-    
+    //go back to the main menu
     func startOver() {
         
         self.performSegue(withIdentifier: "backToDDTMain", sender: self)
         
     }
     
-    
+    //provide remind when user finish all the 27 questions
     func finishedRemind(){
         
         let alert = UIAlertController(title: "Awesome", message: "You have finished all the questions!", preferredStyle: .alert)

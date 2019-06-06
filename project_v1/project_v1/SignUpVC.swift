@@ -30,6 +30,7 @@ class SignUpVC: UIViewController {
     
     @IBOutlet weak var researchID: UITextField!
     
+    //user informaion disctionary
     var userInfoToRegister = [
         "age": 0,
         "email": "string",
@@ -45,11 +46,10 @@ class SignUpVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
-        
+        //adjust the frame position depend on the keyboard height
+        //tap anywhere in the view to dismiss the keyboard
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
         
-        //Uncomment the line below if you want the tap not not interfere and cancel other interactions.
         tap.cancelsTouchesInView = false
         
         view.addGestureRecognizer(tap)
@@ -59,28 +59,18 @@ class SignUpVC: UIViewController {
         
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
-    
     
     @IBAction func buttonPressed(_ sender: Any) {
         
         if userName.text == nil || passWord.text == nil || firstName.text == nil || lastName.text == nil || sex.text == nil || age.text == nil || eMail.text == nil {
             
             self.unsuccessRemind()
-            print("empty")
+            //print("empty")
             
         }else{
-        
+            
+            //male -> sexNum = 0
+            //female -> sexNum = 1
             var sexNum = 0
             
             if sex.text?.lowercased() == "male" {
@@ -100,24 +90,20 @@ class SignUpVC: UIViewController {
                 "username": userName.text
                 ] as [String : Any]
             
+            //send user register information to the server
             Alamofire.request("http://45.113.232.152:8080/user/register", method: .post, parameters: userInfoToRegister, encoding: JSONEncoding.default).responseJSON { (response) in
                 if response.result.isSuccess{
                     
-                    //print("Success")
                     let resultJSON : JSON = JSON(response.result.value!)
-                    
-                    print(resultJSON)
-                    //print(resultJSON["code"])
                     
                     if resultJSON["code"] == 200{
                         
                         self.finishedRemind()
-                        //self.performSegue(withIdentifier: "SegueToMainMenu", sender: self)
+                        
                     }else {
                         
-                        
                         self.unsuccessRemind()
-                        //print("May have some problem in log in.")
+                        print("May have some problem in log in.")
                     }
                     
                 }
@@ -138,6 +124,8 @@ class SignUpVC: UIViewController {
         self.performSegue(withIdentifier: "SegueBackToSignIn", sender: self)
     }
     
+    
+    //Give alert to show the register is succeed.
     func finishedRemind(){
         
         let alert = UIAlertController(title: "Congratulations", message: "You have registered successfully!", preferredStyle: .alert)
@@ -153,6 +141,7 @@ class SignUpVC: UIViewController {
     }
     
     
+    //Give alert if the user's information is not correct.
     func unsuccessRemind(){
         
         let alert = UIAlertController(title: "Sorry", message: "Please double check your information!", preferredStyle: .alert)
@@ -167,8 +156,7 @@ class SignUpVC: UIViewController {
     }
     
     
-    
-    
+    //Give alert if cannot connect to the server.
     func serverFailRemind(){
         
         let alert = UIAlertController(title: "Sorry", message: "There may be something wrong connecting to the server.", preferredStyle: .alert)
@@ -184,11 +172,13 @@ class SignUpVC: UIViewController {
     }
     
     
+    //dismiss the keyboard
     @objc func dismissKeyboard() {
         //Causes the view (or one of its embedded text fields) to resign the first responder status.
         view.endEditing(true)
     }
     
+    //adjust the frame position depend on the keyboard height
     @objc func keyboardWillShow(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
             if self.view.frame.origin.y == 0 {
@@ -197,6 +187,7 @@ class SignUpVC: UIViewController {
         }
     }
     
+    //hide the keybord
     @objc func keyboardWillHide(notification: NSNotification) {
         if self.view.frame.origin.y != 0 {
             self.view.frame.origin.y = 0

@@ -11,7 +11,8 @@ import Alamofire
 import SwiftyJSON
 
 class ForgetPasswordVC: UIViewController {
-
+    
+    //email address textfield
     @IBOutlet weak var emailAddress: UITextField!
     
     
@@ -21,23 +22,13 @@ class ForgetPasswordVC: UIViewController {
         // Do any additional setup after loading the view.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-    
     
     @IBAction func resetPasswordPressed(_ sender: Any) {
         
         
         let userEmailAddress = emailAddress.text as! String
         
+        //send the email address to the server and check if it is valid
         if emailAddress.text != nil{
             
             let url = "http://45.113.232.152:8080/resetpassword/request?email=\(userEmailAddress)"
@@ -45,11 +36,7 @@ class ForgetPasswordVC: UIViewController {
             Alamofire.request(url, method: .get, encoding: JSONEncoding.default).responseJSON { (response) in
                 if response.result.isSuccess{
                     
-                    //print("Success")
                     let resultJSON : JSON = JSON(response.result.value!)
-                    
-                    print(resultJSON)
-                    //print(resultJSON["code"])
                     
                     if resultJSON["code"] == 200{
                         
@@ -76,6 +63,7 @@ class ForgetPasswordVC: UIViewController {
     }
     
     
+    //Give alert to show the email address is valid.
     func successRemind(){
         
         let alert = UIAlertController(title: "Thanks", message: "The server will send an email to you mailbox.", preferredStyle: .alert)
@@ -90,9 +78,10 @@ class ForgetPasswordVC: UIViewController {
     }
     
     
+    //Give alert if the user's email address is not correct.
     func unsuccessRemind(){
         
-        let alert = UIAlertController(title: "Sorry", message: "Your email address may not exist.", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Sorry", message: "Your e-mail address may not exist.", preferredStyle: .alert)
         
         let restartAction = UIAlertAction(title: "Return", style: .default, handler: { UIAlertAction in
             
@@ -103,6 +92,8 @@ class ForgetPasswordVC: UIViewController {
         present(alert, animated: true, completion: nil)
     }
     
+    
+    //Give alert if cannot connect to the server.
     func serverFailRemind(){
         
         let alert = UIAlertController(title: "Sorry", message: "There may be something wrong connecting to the server.", preferredStyle: .alert)

@@ -83,6 +83,8 @@ class ViewControllerSSTTest: UIViewController {
         
         
         textView1.text = ""
+        textView1.textColor = UIColor.white
+        textView1.textAlignment = .center
         textView1.text = "Experiment Block \(experimentBlockNum)"
         label2.text = ""
         image1.image = UIImage(named: "trans")
@@ -344,8 +346,8 @@ class ViewControllerSSTTest: UIViewController {
         }
         
         
-        
-        
+        textView1.textColor = UIColor.white
+        textView1.textAlignment = .left
         textView1.text = "Result \n - Number of incorrect responses to go stimuli: \(incorrectNum) \n - Number of missed responses to go stimuli: \(missedNum) \n - Average reaction time to go stimuli: \(String(format: "%.2f", avgReactionTime)) \n - Percentage of correctly suppressed responses on stop trials: \(String(format: "%.2f", successStopRate))"
         
         dataToServer = ["block" : experimentBlockNum, "incorrect" : incorrectNum, "missed" : missedNum, "percentage" : successStopRate, "reactionTime" : avgReactionTime, "trials" : 20, "username" : defaults.dictionary(forKey: "currentUserInfo")?["username"] as Any] as [String : Any]
@@ -372,6 +374,8 @@ class ViewControllerSSTTest: UIViewController {
                 if self.missedNum >= 3 {
                     
                     image1.image = UIImage(named: "trans")
+                    self.textView1.textColor = UIColor.red
+                    self.textView1.textAlignment = .center
                     self.textView1.text = "You MUST respond to X/O go stimuli as fast as possible"
                     
                     Timer.after(1000.ms) {
