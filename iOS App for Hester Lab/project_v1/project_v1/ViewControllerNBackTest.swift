@@ -1,7 +1,7 @@
 //
 //  ViewControllerNBackTest.swift
 //  project_v1
-//
+//  N-back experiment blocks, real test
 //  Created by Yudong Liu on 2019/4/28.
 //  Copyright © 2019 Yudong Liu. All rights reserved.
 //

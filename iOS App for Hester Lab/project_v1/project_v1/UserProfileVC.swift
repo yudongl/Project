@@ -1,7 +1,7 @@
 //
 //  UserProfileVC.swift
 //  project_v1
-//
+//  Show user profile information
 //  Created by Yudong Liu on 2019/5/21.
 //  Copyright © 2019 Yudong Liu. All rights reserved.
 //

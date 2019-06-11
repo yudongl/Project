@@ -21,6 +21,7 @@
 		4D0FD5A222939D4D006FCFF8 /* NBackRankVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0FD5A122939D4D006FCFF8 /* NBackRankVC.swift */; };
 		4D0FD5C3229CB2F0006FCFF8 /* ForgetPasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0FD5C2229CB2F0006FCFF8 /* ForgetPasswordVC.swift */; };
 		4D0FD5C5229F5DB1006FCFF8 /* NBackReminderVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0FD5C4229F5DB1006FCFF8 /* NBackReminderVC.swift */; };
+		4D40667622AF3438003BF5EF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D40667522AF3438003BF5EF /* ViewController.swift */; };
 		4D9200A42266952500DF6DB9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D9200A32266952500DF6DB9 /* AppDelegate.swift */; };
 		4D9200A92266952500DF6DB9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D9200A72266952500DF6DB9 /* Main.storyboard */; };
 		4D9200AB2266952700DF6DB9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4D9200AA2266952700DF6DB9 /* Assets.xcassets */; };
@@ -45,6 +46,7 @@
 		4D0FD5A122939D4D006FCFF8 /* NBackRankVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NBackRankVC.swift; sourceTree = "<group>"; };
 		4D0FD5C2229CB2F0006FCFF8 /* ForgetPasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgetPasswordVC.swift; sourceTree = "<group>"; };
 		4D0FD5C4229F5DB1006FCFF8 /* NBackReminderVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NBackReminderVC.swift; sourceTree = "<group>"; };
+		4D40667522AF3438003BF5EF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		4D9200A02266952500DF6DB9 /* project_v1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = project_v1.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D9200A32266952500DF6DB9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4D9200A82266952500DF6DB9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -109,6 +111,7 @@
 				4D9200A32266952500DF6DB9 /* AppDelegate.swift */,
 				4D0EA036227FC35E00B90670 /* SwiftyTimer.swift */,
 				4D9200A72266952500DF6DB9 /* Main.storyboard */,
+				4D40667522AF3438003BF5EF /* ViewController.swift */,
 				4D0FD5C2229CB2F0006FCFF8 /* ForgetPasswordVC.swift */,
 				4D0EA034227FB91500B90670 /* SignInVC.swift */,
 				4D0EA038227FE95600B90670 /* SignUpVC.swift */,
@@ -263,6 +266,7 @@
 				4D9200B62266A7AD00DF6DB9 /* ViewControllerDDTTest.swift in Sources */,
 				4D0E9FE622753A6300B90670 /* ViewControllerSSTPractice.swift in Sources */,
 				4D0FD5C5229F5DB1006FCFF8 /* NBackReminderVC.swift in Sources */,
+				4D40667622AF3438003BF5EF /* ViewController.swift in Sources */,
 				4D0FD59E229392C5006FCFF8 /* NBackRecordsVC.swift in Sources */,
 				4D9200A42266952500DF6DB9 /* AppDelegate.swift in Sources */,
 				4D0E9FEA22753A8E00B90670 /* ViewControllerNBackPractice.swift in Sources */,

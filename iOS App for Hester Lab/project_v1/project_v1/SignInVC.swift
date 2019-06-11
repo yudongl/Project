@@ -1,7 +1,7 @@
 //
 //  SignInVC.swift
 //  project_v1
-//  Sign in function
+//  Sign in view controller functions
 //  Created by Yudong Liu on 2019/5/6.
 //  Copyright © 2019 Yudong Liu. All rights reserved.
 //

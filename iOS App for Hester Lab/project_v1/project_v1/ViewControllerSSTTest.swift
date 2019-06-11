@@ -1,7 +1,7 @@
 //
 //  ViewControllerSSTTest.swift
 //  project_v1
-//  This file deals with the SST experiment blocks functions
+//  This file deals with the SST real experiment blocks functions
 //  Created by Yudong Liu on 2019/4/28.
 //  Copyright © 2019 Yudong Liu. All rights reserved.
 //

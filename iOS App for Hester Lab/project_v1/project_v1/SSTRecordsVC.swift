@@ -1,7 +1,7 @@
 //
 //  SSTRecordsVC.swift
 //  project_v1
-//
+//  SST history records
 //  Created by Yudong Liu on 2019/5/21.
 //  Copyright © 2019 Yudong Liu. All rights reserved.
 //

@@ -1,7 +1,7 @@
 //
 //  ViewControllerDDTTest.swift
 //  project_v1
-//
+//  Delay Discounting Tasks (DDT)
 //  Created by Yudong Liu on 2019/4/17.
 //  Copyright © 2019 Yudong Liu. All rights reserved.
 //

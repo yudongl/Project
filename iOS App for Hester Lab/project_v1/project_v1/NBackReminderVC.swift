@@ -1,7 +1,7 @@
 //
 //  NBackReminderVC.swift
 //  project_v1
-//
+//  Remind the user to do the test nextday
 //  Created by Yudong Liu on 2019/5/30.
 //  Copyright © 2019 Yudong Liu. All rights reserved.
 //

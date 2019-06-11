@@ -1,7 +1,7 @@
 //
 //  NBackRankVC.swift
 //  project_v1
-//
+//  N-back rank information
 //  Created by Yudong Liu on 2019/5/21.
 //  Copyright © 2019 Yudong Liu. All rights reserved.
 //
